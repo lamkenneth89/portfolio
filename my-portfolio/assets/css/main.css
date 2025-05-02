@@ -1,0 +1,85 @@
+/* 
+This is the main CSS file for your portfolio. 
+You can customize the styles below to match your personal branding and design preferences.
+*/
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header Styles */
+#header {
+    background: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+#header .inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Main Section Styles */
+#main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Styles */
+section {
+    margin-bottom: 40px;
+}
+
+section h2 {
+    color: #333;
+}
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background: #0056b3;
+}
+
+/* Footer Styles */
+#footer {
+    background: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+#footer .inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    #main {
+        padding: 10px;
+    }
+
+    .button {
+        width: 100%;
+        text-align: center;
+    }
+}
