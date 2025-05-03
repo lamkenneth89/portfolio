@@ -152,13 +152,17 @@ input, select, textarea {
 	}
 
 	h2 {
-		font-size: 1.5em;
-		line-height: 1.5em;
+		font-size: 2em;
+		margin-bottom: 1.5em;
+		text-align: left;
+		color: #444;
 	}
 
 	h3 {
-		font-size: 1.25em;
-		line-height: 1.5em;
+		font-size: 1.5em;
+		margin-bottom: 1em;
+		text-align: left;
+		color: #555;
 	}
 
 	h4 {
@@ -2202,6 +2206,7 @@ input, select, textarea {
 		cursor: default;
 		list-style: none;
 		padding-left: 0;
+		text-align: center;
 	}
 
 		ul.icons li {
@@ -2222,6 +2227,7 @@ input, select, textarea {
 	ul.labeled-icons {
 		list-style: none;
 		padding: 0;
+		text-align: left;
 	}
 
 		ul.labeled-icons li {
@@ -2259,6 +2265,8 @@ input, select, textarea {
 		list-style: none;
 		margin-left: -1em;
 		padding-left: 0;
+		text-align: left;
+		margin: 2em 0;
 	}
 
 		ul.actions li {
@@ -2567,6 +2575,7 @@ input, select, textarea {
 		transition: transform 0.3s ease, box-shadow 0.3s ease;
 		padding: 1em;
 		border-radius: 0.35em;
+		text-align: left;
 	}
 
 		.work-item .image {
@@ -2574,8 +2583,8 @@ input, select, textarea {
 		}
 
 		.work-item h3 {
-			font-size: 1em;
-			margin: 0 0 0.5em 0;
+			font-size: 1.3em;
+			margin: 1em 0 0.5em 0;
 		}
 
 		.work-item p {
@@ -2624,7 +2633,7 @@ input, select, textarea {
 		left: 0;
 		padding: 8em 4em;
 		position: fixed;
-		text-align: right;
+		text-align: center;
 		top: 0;
 		width: 35%;
 	}
@@ -2665,14 +2674,68 @@ input, select, textarea {
 
 		#header h1 {
 			color: rgba(255, 255, 255, 0.5);
-			font-size: 1.35em;
+			font-size: 2.3em;
 			line-height: 1.75em;
-			margin: 0;
+			margin: 1em 0 0.5em 0;
 		}
 
 		#header .image.avatar {
 			margin: 0 0 1em 0;
 			width: 6.25em;
+			display: block;
+		}
+
+		#header .inner {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			width: 100%;
+		}
+
+		#header .profile-container {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			text-align: right;
+			width: 100%;
+			max-width: 80%;
+		}
+
+		#header .image.avatar {
+			width: 6.25em;
+			margin: 0 0 1em 0;
+		}
+
+		#header .roles {
+			font-size: 1.2em;
+			text-align: right;
+		}
+
+		/* Responsive adjustments */
+		@media screen and (max-width: 980px) {
+			#header {
+				text-align: center;
+				padding: 4em 3em;
+			}
+
+			#header .inner {
+				align-items: center;
+			}
+
+			#header .profile-container {
+				align-items: center;
+				text-align: center;
+			}
+
+			#header .roles {
+				text-align: center;
+			}
+		}
+
+		@media screen and (max-width: 736px) {
+			#header {
+				padding: 2.25em 1.5em;
+			}
 		}
 
 /* Footer */
@@ -2718,13 +2781,15 @@ input, select, textarea {
 		max-width: 54em;
 		padding: 8em 4em 4em 4em;
 		width: calc(100% - 35%);
+		text-align: left;
 	}
 
 		#main > section {
 			border-top: solid 1px rgba(239, 239, 239, 0.5);  /* Lighter border */
-			margin: 3em 0 0 0;
-			padding: 3em 0 0 0;
+			margin: 4em 0;
+			padding: 0;
 			position: relative;
+			text-align: left;
 		}
 
 			#main > section:before {
@@ -2746,6 +2811,20 @@ input, select, textarea {
 				#main > section:first-child:before {
 					display: none;
 				}
+
+		@media screen and (max-width: 1280px) {
+			#main {
+				margin-left: 25%;
+				padding: 4em 3em 2em 3em;
+			}
+		}
+
+		@media screen and (max-width: 980px) {
+			#main {
+				margin: 0;
+				padding: 4em 3em 2em 3em;
+			}
+		}
 
 /* Poptrox */
 
