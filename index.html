@@ -55,10 +55,10 @@
 							<li><a href="#portfolio" class="button">View Projects</a></li>
 						</ul>
 						<div class="row" style="margin-left: 0;">
-							<article class="col-6 col-12-xsmall work-item" style="margin-bottom: 0;">
+							<article class="col-6 col-12-xsmall work-item">
 								<a href="https://public.tableau.com/app/profile/kenneth.lam/viz/Resume_17168221183140/CV" target="_blank" class="image fit thumb"><img src="images/resume.jpg" alt="Resume Visualization" /></a>
-								<h3>Resume Visualization</h3>
-								<p>Interactive visualization of my professional experience and skills using Tableau.</p>
+								<h3 style="font-size: 1.56em;">Resume Visualization</h3>
+								<p style="font-size: 0.96em;">Interactive visualization of my professional experience and skills using Tableau.</p>
 							</article>
 						</div>
 					</section>
@@ -157,10 +157,16 @@
                 <p>Optimize budget split across budget owners to maximize sales using neural network models.</p></a>
             </article>
 			<article class="col-6 col-12-xsmall work-item">
-                <a href="hhttps://github.com/lamkenneth89/sales-forecast" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://github.com/lamkenneth89/sales-forecast" target="_blank" style="text-decoration: none; color: inherit;">
 				<div class="image fit thumb"><img src="images/thumbs/sales forecast.jpg" alt="" /></div>
 					<h4>Sales Forecast</h4>
                 <p>Forecast sales by multi-linear regression.</p></a>
+			</article>
+			<article class="col-6 col-12-xsmall work-item">
+                <a href="https://github.com/lamkenneth89/NTGreenMinibus_scraper" target="_blank" style="text-decoration: none; color: inherit;">
+				<div class="image fit thumb"><img src="images/thumbs/minibus_data_scraper.jpg" alt="" /></div>
+					<h4>Minibus Data Scraper</h4>
+                <p>Developed and deployed Minibus Data Scraper using Flask Web App and Python. Hosted online using Streamlit.</p></a>
 			</article>
         </div>
     </div>
@@ -211,6 +217,11 @@
 				<h4>Market Trend and Intelligence</h4>
 				<p>Keeping track of market trends and drive insights driven business decision making.</p>
 			</article>
+			<article class="col-6 col-12-xsmall work-item">
+				<a href="images/fulls/social platform landscape.jpg" class="image fit thumb"><img src="images/thumbs/social platform landscape.jpg" alt="" /></a>
+				<h4>Social Platform Landscape</h4>
+				<p>A consumer eletronic focused market research study to inform social media strategy by age groups. </p>
+			</article>
 			<!-- <article class="col-6 col-12-xsmall work-item">
                 <a href="images/fulls/yearly research plan.jpg" class="image fit thumb"><img src="images/thumbs/yearly research plan.jpg" alt="" /></a>
                 <h3>Research Plan</h3>
@@ -225,16 +236,16 @@
 						<h2>Get In Touch</h2>
 						<div class="row">
 							<div class="col-8 col-12-small">
-								<form method="post" action="#">
+									<form id="contactForm" onsubmit="sendEmail(event)">
 									<div class="row gtr-uniform gtr-50">
 										<div class="col-6 col-12-xsmall">
-											<input type="text" name="name" id="name" placeholder="Name" />
+											<input type="text" name="name" id="name" placeholder="Name" required />
 										</div>
 										<div class="col-6 col-12-xsmall">
-											<input type="email" name="email" id="email" placeholder="Email" />
+											<input type="email" name="email" id="email" placeholder="Email" required />
 										</div>
 										<div class="col-12">
-											<textarea name="message" id="message" placeholder="Message" rows="4"></textarea>
+											<textarea name="message" id="message" placeholder="Message" rows="4" required></textarea>
 										</div>
 									</div>
 									<ul class="actions" style="margin-top: 2em;">
@@ -246,7 +257,7 @@
 								<ul class="labeled-icons">
 									<li>
 										<h3 class="icon solid fa-envelope"><span class="label">Email</span></h3>
-										<a href="#">lamkenneth89@gmail.com</a>
+										<a href="mailto:lamkenneth89@gmail.com">lamkenneth89@gmail.com</a>
 									</li>
 								</ul>
 							</div>
@@ -274,6 +285,16 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-
+			<script>
+				function sendEmail(e) {
+					e.preventDefault();
+					const name = document.getElementById('name').value;
+					const email = document.getElementById('email').value;
+					const message = document.getElementById('message').value;
+					
+					const mailtoLink = `mailto:lamkenneth89@gmail.com?subject=Contact from Portfolio&body=Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+					window.location.href = mailtoLink;
+				}
+			</script>
 	</body>
 </html>
