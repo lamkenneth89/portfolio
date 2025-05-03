@@ -166,17 +166,17 @@ input, select, textarea {
 	}
 
 	h4 {
-		font-size: 1.1em;
+		font-size: 0.8em;
 		line-height: 1.5em;
 	}
 
 	h5 {
-		font-size: 0.9em;
+		font-size: 0.6em;
 		line-height: 1.5em;
 	}
 
 	h6 {
-		font-size: 0.7em;
+		font-size: 0.5em;
 		line-height: 1.5em;
 	}
 
@@ -2111,7 +2111,7 @@ input, select, textarea {
 				opacity: 1.0;
 			}
 
-			.image img {
+				.image img {
 				border-radius: 0.35em;
 				display: block;
 			}
@@ -2601,6 +2601,31 @@ input, select, textarea {
 		.work-item img {
 			border-radius: 0.35em;
 			box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+		}
+
+		.work-item h4 {
+			font-size: 1.04em;  /* Reduced to 80% of 1.3em */
+			margin: 1em 0 0.5em 0;
+			position: relative;
+			padding-bottom: 10px;
+			margin-bottom: 15px;
+			color: #787878;
+			font-weight: 400;
+		}
+
+		.work-item h4:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 50px;  /* Default width */
+			height: 2px;
+			background: #49bf9d;
+			transition: width 0.3s ease;
+		}
+
+		.work-item:hover h4:after {
+			width: 100%;
 		}
 
 /* Header */
@@ -3367,8 +3392,44 @@ input, select, textarea {
     color: #484848;
 }
 
-#skills .row > div {
-    margin-bottom: 30px;
+#skills .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    margin: 0;
+    padding: 0;
+}
+
+#skills .col-4 {
+    flex: 0 0 33%;
+    max-width: 33%;
+    padding: 0 0.5em;
+}
+
+#skills li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    padding: 0.5em 0.75em;
+}
+
+#skills h3 {
+    white-space: nowrap;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+
+@media screen and (max-width: 980px) {
+    #skills .row {
+        flex-direction: column;
+        gap: 2em;
+    }
+
+    #skills .col-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }
 
 /* Project Categories Styling */
@@ -3816,5 +3877,118 @@ textarea:focus {
     border-color: #49bf9d;
     box-shadow: 0 0 0 2px rgba(73, 191, 157, 0.1);
     transform: translateY(-2px);
+}
+
+/* About Me Section Alignment */
+#one {
+    padding: 0;
+}
+
+#one .major {
+    margin-bottom: 2em;
+}
+
+#one .actions {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+#one .work-item {
+    padding-left: 0;
+}
+
+#one .row {
+    margin-left: 0;
+}
+
+#one .image.fit {
+    margin-left: 0;
+}
+
+/* Skills Section Styling */
+#skills {
+    padding: 0;
+    margin: 4em 0;
+}
+
+#skills h2 {
+    text-align: left;
+    padding: 0;
+    margin-bottom: 1.5em;
+}
+
+#skills .container {
+    padding: 0;
+    max-width: 100%;
+}
+
+#skills .row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5em;
+    margin: 0;
+    padding: 0;
+}
+
+#skills .col-4 {
+    flex: 0 0 31%;
+    max-width: 31%;
+    margin-right: 1%;
+    padding: 0;
+}
+
+#skills h3 {
+    white-space: nowrap;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    padding: 0;
+}
+
+/* Project section adjustments */
+#portfolio {
+    margin-top: 2em;
+}
+
+.project-category {
+    margin: 2em 0;
+    padding-top: 0;
+}
+
+.project-category h3 {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    border-bottom: 1px solid #49bf9d;
+    padding-bottom: 0.5em;
+}
+
+.work-item h3 {
+    font-size: 1.2em;
+    margin: 0.5em 0;
+}
+
+/* Card layout adjustments */
+#portfolio .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    gap: 2em;
+}
+
+#portfolio .col-6 {
+    flex: 0 0 calc(50% - 1em);
+    max-width: calc(50% - 1em);
+    margin: 0;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 736px) {
+    #portfolio .col-6 {
+        flex: 0 0 calc(50% - 1em);
+        max-width: calc(50% - 1em);
+    }
+
+    .work-item p {
+        font-size: 0.8em;
+    }
 }
 
