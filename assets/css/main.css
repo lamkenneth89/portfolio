@@ -4007,3 +4007,46 @@ textarea:focus {
     }
 }
 
+/* Skills Section Styling */
+#skills li {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    width: 100%;
+    padding: 0.5em 0.75em;
+    line-height: 1.4;
+}
+
+@media screen and (max-width: 980px) {
+    #skills .row {
+        flex-direction: column;
+        gap: 2em;
+    }
+
+    #skills .col-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding: 0 1em;
+    }
+
+    #skills li {
+        padding: 0.5em 0;
+    }
+
+    #skills h3 {
+        white-space: normal;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #skills li {
+        font-size: 1em;
+        padding: 0.5em 0;
+    }
+    
+    #skills li i {
+        margin-right: 8px;
+        width: auto;
+    }
+}
+
