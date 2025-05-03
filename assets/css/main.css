@@ -76,6 +76,7 @@ input, select, textarea {
 
 	html {
 		box-sizing: border-box;
+		scroll-behavior: smooth;
 	}
 
 	*, *:before, *:after {
@@ -2734,6 +2735,20 @@ input, select, textarea {
 		#header .roles {
 			font-size: 1.2em;
 			text-align: right;
+		}
+
+		#header .roles a {
+			color: rgba(255, 255, 255, 0.5);
+			text-decoration: none;
+			border-bottom: none;
+			transition: color 0.3s ease;
+			display: inline-block;
+			margin-bottom: 0.5em;
+		}
+
+		#header .roles a:hover {
+			color: #49bf9d;
+			border-bottom: none;
 		}
 
 		/* Responsive adjustments */
