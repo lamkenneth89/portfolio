@@ -282,11 +282,15 @@ const jsonLd = {
 </Base>
 
 <script>
+  import { track } from '../lib/track';
+
   // The contact form has no backend by design — it hands the draft to the
   // visitor's own mail client, exactly as the previous site did.
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   form?.addEventListener('submit', (event) => {
     event.preventDefault();
+    // Only the channel is recorded — never the name, address or message.
+    track('contact_submit', { contact_method: 'form' });
     const data = new FormData(form);
     const name = String(data.get('name') ?? '');
     const email = String(data.get('email') ?? '');

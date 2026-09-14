@@ -120,6 +120,8 @@ const fallback = demo.fallbackImage
 </figure>
 
 <script>
+  import { track } from '../lib/track';
+
   // Swap the poster for the real iframe only once the visitor asks for it.
   document.querySelectorAll('[data-demo-frame]').forEach((wrap) => {
     const button = wrap.querySelector('[data-demo-start]');
@@ -135,13 +137,7 @@ const fallback = demo.fallbackImage
       frame.allowFullscreen = true;
       frame.className = 'aspect-[16/10] w-full border border-rule bg-surface-2';
       wrap.replaceChildren(frame);
-
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'demo_interaction',
-        demo_id: id,
-        demo_action: 'load_embed',
-      });
+      track('demo_interaction', { demo_id: id, demo_action: 'load_embed' });
     });
   });
 </script>

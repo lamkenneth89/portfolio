@@ -1,0 +1,89 @@
+---
+// Consent Mode v2. The default state is denied and is set in Base.astro before
+// the container loads, so nothing is measured until a visitor opts in.
+---
+
+<div
+  id="consent-banner"
+  hidden
+  class="fixed inset-x-0 bottom-0 z-50 border-t border-rule-strong bg-surface-2"
+  role="region"
+  aria-label="Analytics consent"
+>
+  <div
+    class="mx-auto flex max-w-[80rem] flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8"
+  >
+    <p class="max-w-[68ch] text-[0.88rem] text-fg-muted">
+      This site measures which projects people actually open, using Google
+      Analytics. No personal details are collected and nothing is shared with
+      advertisers — but it is your call.
+    </p>
+    <div class="flex shrink-0 gap-2">
+      <button
+        type="button"
+        data-consent="denied"
+        class="border border-rule-strong px-4 py-2 font-mono text-[0.65rem] uppercase tracking-[0.14em] transition-colors hover:border-accent hover:text-accent"
+      >
+        Decline
+      </button>
+      <button
+        type="button"
+        data-consent="granted"
+        class="border border-accent bg-accent px-4 py-2 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent-fg transition-opacity hover:opacity-85"
+      >
+        Allow
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const KEY = 'analytics-consent';
+  const banner = document.getElementById('consent-banner');
+
+  // Consent Mode reads the arguments object itself, so this has to stay a
+  // classic function — an array pushed instead is silently ignored.
+  function gtag(..._args: unknown[]) {
+    window.dataLayer = window.dataLayer || [];
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer.push(arguments);
+  }
+
+  function apply(state: 'granted' | 'denied') {
+    gtag('consent', 'update', {
+      analytics_storage: state,
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+    });
+    // The tag itself is only fetched on a yes, so a decline means no request
+    // to Google ever leaves this browser.
+    if (state === 'granted') window.__loadAnalytics?.();
+  }
+
+  let stored: string | null = null;
+  try {
+    stored = localStorage.getItem(KEY);
+  } catch {
+    /* private mode — the banner simply shows again next visit */
+  }
+
+  if (stored === 'granted' || stored === 'denied') {
+    apply(stored);
+  } else if (banner) {
+    banner.hidden = false;
+  }
+
+  banner?.querySelectorAll<HTMLButtonElement>('[data-consent]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const state = btn.dataset.consent === 'granted' ? 'granted' : 'denied';
+      apply(state);
+      try {
+        localStorage.setItem(KEY, state);
+      } catch {
+        /* nothing to do; the choice applies to this page view */
+      }
+      banner.hidden = true;
+    });
+  });
+</script>

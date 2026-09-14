@@ -26,8 +26,15 @@ export const site = {
     { label: 'About', href: '/about' },
     { label: 'Contact', href: '/#contact' },
   ],
-  /** GA4 property in use since 2025. Phase 2 moves tagging into GTM. */
+  /** GA4 property in use since 2025. */
   ga4: 'G-5LS37NMPYN',
+  /**
+   * GTM web container, e.g. 'GTM-XXXXXXX'. Until this is filled in the site
+   * falls back to the plain gtag snippet, so measurement never goes dark
+   * between creating the container and configuring its tags.
+   * See docs/tracking-spec.md.
+   */
+  gtm: '',
 } as const;
 
 export const facts = [

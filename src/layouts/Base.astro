@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
 import { site } from '../lib/site';
 import { url } from '../lib/url';
 
@@ -75,21 +76,62 @@ const ogImageAbsolute = ogImage.startsWith('http')
       })();
     </script>
 
-    {/* Phase 2 replaces this with a GTM container + Consent Mode v2. */}
-    <script
-      async
-      src={`https://www.googletagmanager.com/gtag/js?id=${site.ga4}`}></script>
-    <script is:inline define:vars={{ ga4: site.ga4 }}>
+    {/* Consent Mode v2 defaults, set before any container loads. Nothing is
+        measured until the visitor opts in through the banner. */}
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag('js', new Date());
-      gtag('config', ga4);
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500,
+      });
+    </script>
+
+    {/* Nothing Google-owned is requested until the visitor opts in. Consent
+        Mode alone would still let a denied-state cookieless ping leave the
+        browser; withholding the tag entirely means genuinely zero hits.
+        ConsentBanner calls this once consent exists. */}
+    <script is:inline define:vars={{ gtm: site.gtm, ga4: site.ga4 }}>
+      window.__loadAnalytics = function () {
+        if (window.__analyticsLoaded) return;
+        window.__analyticsLoaded = true;
+
+        var script = document.createElement('script');
+        script.async = true;
+
+        if (gtm) {
+          dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+          script.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtm;
+        } else {
+          // No container configured yet — keep the existing GA4 tag working.
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4;
+          gtag('js', new Date());
+          gtag('config', ga4);
+        }
+        document.head.appendChild(script);
+      };
     </script>
   </head>
 
   <body>
+    {
+      site.gtm && (
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${site.gtm}`}
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"
+            title="Google Tag Manager"
+          />
+        </noscript>
+      )
+    }
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-fg"
@@ -101,5 +143,11 @@ const ogImageAbsolute = ogImage.startsWith('http')
       <slot />
     </main>
     <Footer />
+    <ConsentBanner />
   </body>
 </html>
+
+<script>
+  import { initTracking } from '../lib/track';
+  initTracking();
+</script>
