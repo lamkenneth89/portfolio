@@ -1,0 +1,147 @@
+---
+import { url } from '../lib/url';
+
+interface Props {
+  demo: {
+    type: 'iframe' | 'link' | 'video' | 'image';
+    url: string;
+    label?: string;
+    fallbackImage?: string;
+  };
+  projectId: string;
+}
+
+const { demo, projectId } = Astro.props;
+const label = demo.label ?? 'Open the live app';
+const src = /^https?:/.test(demo.url) ? demo.url : url(encodeURI(demo.url));
+const fallback = demo.fallbackImage
+  ? url(encodeURI(demo.fallbackImage))
+  : undefined;
+---
+
+<figure class="mt-14">
+  <figcaption
+    class="flex flex-wrap items-baseline justify-between gap-3 border-b border-rule-strong pb-2"
+  >
+    <span class="kicker">Try it yourself</span>
+    <a
+      href={src}
+      target="_blank"
+      rel="noopener"
+      class="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-accent no-underline hover:underline"
+      data-track="demo_interaction"
+      data-demo-id={projectId}
+      data-demo-action="open_in_new_tab"
+    >
+      {label} ↗
+    </a>
+  </figcaption>
+
+  {
+    demo.type === 'iframe' && (
+      <div
+        class="mt-4"
+        data-demo-frame
+        data-demo-id={projectId}
+        data-demo-src={src}
+      >
+        {/* Loaded on demand: these embeds are heavy and must not cost the
+            page its first paint. */}
+        <button
+          type="button"
+          class="group relative block w-full overflow-hidden border border-rule"
+          data-demo-start
+        >
+          {fallback ? (
+            <img
+              src={fallback}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              class="aspect-[16/10] w-full object-cover opacity-70 transition group-hover:opacity-90"
+            />
+          ) : (
+            <span class="block aspect-[16/10] w-full bg-surface-2" />
+          )}
+          <span class="absolute inset-0 grid place-items-center">
+            <span class="border border-accent bg-accent px-5 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-accent-fg">
+              ▶ Load the live demo
+            </span>
+          </span>
+        </button>
+      </div>
+    )
+  }
+
+  {
+    demo.type === 'video' && (
+      <video
+        class="mt-4 w-full border border-rule"
+        controls
+        preload="none"
+        poster={fallback}
+        data-track="demo_interaction"
+        data-demo-id={projectId}
+        data-demo-action="play_video"
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+    )
+  }
+
+  {
+    demo.type === 'image' && (
+      <img
+        src={src}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        class="mt-4 w-full border border-rule"
+      />
+    )
+  }
+
+  {
+    demo.type === 'link' && (
+      <a
+        href={src}
+        target="_blank"
+        rel="noopener"
+        class="mt-4 flex items-center justify-between border border-rule px-5 py-6 no-underline transition-colors hover:border-accent"
+        data-track="demo_interaction"
+        data-demo-id={projectId}
+        data-demo-action="open_in_new_tab"
+      >
+        <span class="font-display text-2xl">{label}</span>
+        <span class="font-mono text-sm text-accent">↗</span>
+      </a>
+    )
+  }
+</figure>
+
+<script>
+  // Swap the poster for the real iframe only once the visitor asks for it.
+  document.querySelectorAll('[data-demo-frame]').forEach((wrap) => {
+    const button = wrap.querySelector('[data-demo-start]');
+    button?.addEventListener('click', () => {
+      const src = (wrap as HTMLElement).dataset.demoSrc;
+      const id = (wrap as HTMLElement).dataset.demoId ?? '';
+      if (!src) return;
+
+      const frame = document.createElement('iframe');
+      frame.src = src;
+      frame.title = 'Live demo';
+      frame.loading = 'lazy';
+      frame.allowFullscreen = true;
+      frame.className = 'aspect-[16/10] w-full border border-rule bg-surface-2';
+      wrap.replaceChildren(frame);
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'demo_interaction',
+        demo_id: id,
+        demo_action: 'load_embed',
+      });
+    });
+  });
+</script>

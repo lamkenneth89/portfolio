@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+
+# Generated from source-images/ by scripts/optimize-images.mjs (npm run prebuild)
+public/images/opt/

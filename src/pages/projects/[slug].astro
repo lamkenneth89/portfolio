@@ -1,0 +1,126 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import DemoEmbed from '../../components/DemoEmbed.astro';
+import { url } from '../../lib/url';
+import { site } from '../../lib/site';
+
+export async function getStaticPaths() {
+  // Only projects with a written case study get a page; the rest stay as
+  // index rows pointing at their original destination.
+  const projects = await getCollection(
+    'projects',
+    ({ data }) => data.hasCaseStudy,
+  );
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const d = project.data;
+const { Content } = await render(project);
+
+const dossier = [
+  d.role && { label: 'Role', value: d.role },
+  d.period && { label: 'Period', value: d.period },
+  d.stack.length > 0 && { label: 'Stack', value: d.stack.join(', ') },
+].filter(Boolean) as { label: string; value: string }[];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: d.title,
+  abstract: d.summary,
+  author: { '@type': 'Person', name: site.name },
+  url: new URL(url(`/projects/${project.id}`), Astro.site).href,
+};
+---
+
+<Base
+  title={`${d.title} — ${site.name}`}
+  description={d.summary}
+  ogImage={d.thumb ?? '/images/avatar.jpg'}
+  jsonLd={jsonLd}
+>
+  <article
+    class="mx-auto max-w-[80rem] px-5 pt-14 sm:px-8"
+    data-case-study={project.id}
+  >
+    <a
+      href={url('/#index')}
+      class="kicker no-underline hover:text-accent">← Back to the index</a
+    >
+
+    <header class="mt-8 grid gap-10 border-b border-rule pb-12 md:grid-cols-12">
+      <div class="md:col-span-8">
+        <p class="kicker">{d.category}</p>
+        <h1 class="mt-4 text-[clamp(2.4rem,6vw,4.4rem)]">{d.title}</h1>
+        <p class="mt-6 max-w-[56ch] text-lg text-fg-muted">{d.summary}</p>
+
+        {
+          d.metrics.length > 0 && (
+            <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+              {d.metrics.map((m) => (
+                <div>
+                  <dt class="font-display text-4xl leading-none text-accent">
+                    {m.value}
+                  </dt>
+                  <dd class="kicker mt-1.5">{m.label}</dd>
+                </div>
+              ))}
+            </dl>
+          )
+        }
+      </div>
+
+      <aside class="md:col-span-4">
+        <dl class="border-t border-rule">
+          {
+            dossier.map((row) => (
+              <div class="border-b border-rule py-2.5">
+                <dt class="kicker">{row.label}</dt>
+                <dd class="mt-1 text-[0.92rem]">{row.value}</dd>
+              </div>
+            ))
+          }
+          {
+            d.repo && (
+              <div class="border-b border-rule py-2.5">
+                <dt class="kicker">Source</dt>
+                <dd class="mt-1">
+                  <a
+                    href={d.repo}
+                    target="_blank"
+                    rel="noopener"
+                    class="text-[0.92rem] text-accent"
+                  >
+                    GitHub ↗
+                  </a>
+                </dd>
+              </div>
+            )
+          }
+        </dl>
+      </aside>
+    </header>
+
+    {
+      d.confidential && (
+        <p class="mt-10 border-l-2 border-accent bg-surface-2 px-5 py-4 text-[0.92rem]">
+          <strong>Synthetic data.</strong> This project was originally built at
+          work and none of that data can leave it. Everything you see here was
+          rebuilt from scratch on generated data to demonstrate the method — no
+          employer data, schema or client names are used anywhere on this page.
+        </p>
+      )
+    }
+
+    {d.demo && <DemoEmbed demo={d.demo} projectId={project.id} />}
+
+    <div class="prose-dossier mt-16 pb-10">
+      <Content />
+    </div>
+  </article>
+</Base>

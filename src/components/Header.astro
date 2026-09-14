@@ -1,0 +1,35 @@
+---
+import { site } from '../lib/site';
+import { url } from '../lib/url';
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-rule bg-surface/85 backdrop-blur-sm"
+>
+  <div
+    class="mx-auto flex max-w-[80rem] items-center justify-between gap-6 px-5 py-3 sm:px-8"
+  >
+    <a
+      href={url('/')}
+      class="font-mono text-[0.7rem] uppercase tracking-[0.2em] no-underline transition-colors hover:text-accent"
+    >
+      Kenneth&nbsp;Lam
+      <span class="text-fg-faint"> — {site.location}</span>
+    </a>
+
+    <nav class="flex items-center gap-5 sm:gap-7" aria-label="Primary">
+      {
+        site.nav.map((item) => (
+          <a
+            href={url(item.href)}
+            class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-fg-muted no-underline transition-colors hover:text-accent"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>

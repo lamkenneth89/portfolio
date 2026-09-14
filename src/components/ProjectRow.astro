@@ -1,0 +1,89 @@
+---
+import { url, imageSet, resolveDestination } from '../lib/url';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const d = project.data;
+
+// A case study when one is written, otherwise the original destination —
+// a Tableau Public viz, a GitHub repo, or the full-size chart.
+const href = d.hasCaseStudy
+  ? url(`/projects/${project.id}`)
+  : d.external
+    ? resolveDestination(d.external)
+    : undefined;
+
+const isOutbound = href ? /^https?:/.test(href) : false;
+const destination = d.hasCaseStudy
+  ? 'case_study'
+  : isOutbound
+    ? 'external'
+    : 'image';
+const num = String(index + 1).padStart(2, '0');
+---
+
+<li class="border-b border-rule">
+  <a
+    href={href}
+    target={isOutbound ? '_blank' : undefined}
+    rel={isOutbound ? 'noopener' : undefined}
+    class="group grid grid-cols-[2.2rem_1fr] items-start gap-x-3 gap-y-2 py-5 no-underline transition-colors hover:bg-surface-2 sm:grid-cols-[3rem_5.5rem_1fr_auto] sm:items-center sm:gap-x-5"
+    data-track="project_card_click"
+    data-project-id={project.id}
+    data-project-category={d.category}
+    data-destination-type={destination}
+  >
+    <span
+      class="pt-1 font-mono text-[0.7rem] tracking-[0.1em] text-fg-faint transition-colors group-hover:text-accent sm:pt-0"
+    >
+      {num}
+    </span>
+
+    {
+      // The index is for scanning; on a phone eighteen full-width thumbnails
+      // would turn it into a very long scroll, so the image is desktop-only.
+      d.thumb && (
+        <span class="col-start-2 row-start-1 hidden overflow-hidden border border-rule sm:block sm:w-[5.5rem]">
+          <img
+            {...imageSet(d.thumb)}
+            sizes="88px"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            class="aspect-[16/9] w-full object-cover opacity-80 saturate-[0.65] transition duration-500 group-hover:scale-[1.04] group-hover:opacity-100 group-hover:saturate-100"
+          />
+        </span>
+      )
+    }
+
+    <span class="col-start-2 row-start-1 block sm:col-start-3">
+      <span
+        class="block font-display text-2xl leading-tight transition-colors group-hover:text-accent sm:text-[1.7rem]"
+      >
+        {d.title}
+      </span>
+      <span class="mt-1 block max-w-[54ch] text-[0.93rem] text-fg-muted">
+        {d.summary}
+      </span>
+      {
+        d.stack.length > 0 && (
+          <span class="mt-2 block font-mono text-[0.65rem] uppercase tracking-[0.12em] text-fg-faint">
+            {d.stack.join(' · ')}
+          </span>
+        )
+      }
+    </span>
+
+    <span
+      class="col-start-2 hidden font-mono text-[0.7rem] text-fg-faint transition-transform duration-300 group-hover:translate-x-1 group-hover:text-accent sm:col-start-4 sm:block"
+      aria-hidden="true"
+    >
+      {isOutbound ? '↗' : '→'}
+    </span>
+  </a>
+</li>

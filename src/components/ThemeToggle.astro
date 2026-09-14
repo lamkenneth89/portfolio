@@ -1,0 +1,43 @@
+---
+// Three states exist in the CSS: explicit light, explicit dark, and "follow the
+// system", which is what a visitor gets until they press this.
+---
+
+<button
+  type="button"
+  id="theme-toggle"
+  class="grid h-7 w-7 place-items-center border border-rule text-fg-muted transition-colors hover:border-accent hover:text-accent"
+  aria-label="Switch colour theme"
+>
+  <svg
+    viewBox="0 0 16 16"
+    width="13"
+    height="13"
+    aria-hidden="true"
+    fill="currentColor"
+  >
+    {/* A half-filled disc: reads as light/dark without needing two icons. */}
+    <path
+      d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1Zm0 1.4v11.2a5.6 5.6 0 0 1 0-11.2Z"
+    ></path>
+  </svg>
+</button>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  toggle?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const current =
+      root.dataset.theme ??
+      (window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      /* private mode — the choice simply does not persist */
+    }
+  });
+</script>

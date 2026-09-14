@@ -1,0 +1,146 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { site } from '../lib/site';
+import { imageSet } from '../lib/url';
+
+const timeline = [
+  {
+    period: 'Now',
+    org: 'Dyson',
+    what: 'Consumer insight, business intelligence and CRM across Hong Kong and the region — segmentation, journey design, and the data architecture underneath both.',
+  },
+  {
+    period: 'Earlier',
+    org: 'PCCW',
+    what: 'Cross-platform user behaviour and content analytics for a subscription business, where retention was the number that mattered.',
+  },
+  {
+    period: 'Earlier',
+    org: 'Mattel',
+    what: 'Market research and commercial analytics — category landscapes, price-tier share, and the research plan that fed product decisions.',
+  },
+];
+---
+
+<Base
+  title={`About — ${site.name}`}
+  description="Kenneth Lam — analytics, CRM and AI-assisted engineering in Hong Kong."
+>
+  <div class="mx-auto max-w-[80rem] px-5 sm:px-8">
+    <section class="grid gap-10 pb-16 pt-16 md:grid-cols-12 md:pt-24">
+      <div class="md:col-span-8">
+        <p class="kicker">About</p>
+        <h1 class="mt-5 text-[clamp(2.4rem,6vw,4.2rem)]">
+          Fifteen years of asking what the number actually means.
+        </h1>
+        <div class="prose-dossier mt-9 text-lg">
+          <p>
+            I lead analytics work that has to survive contact with a commercial
+            team: segmentation that changes who gets contacted, dashboards
+            people open on a Monday morning, research that settles an argument
+            about which product to launch. At Dyson, PCCW and Mattel that has
+            meant doubling a CRM base inside a year, pushing incremental
+            repurchase past 20%, and rebuilding the data architecture
+            underneath so the market could stop waiting on region for an
+            extract.
+          </p>
+          <p>
+            The part that changed recently is the building. For most of my
+            career I specified systems and someone else wrote them. Over the
+            last year I have been writing them — a trilingual speech
+            transcription and summarisation service, an Android app
+            instrumented end to end to learn mobile measurement properly, a
+            small game shipped to the web, dashboards and graph tooling — with
+            an AI pair doing the typing and me doing the deciding.
+          </p>
+          <p>
+            That has made me a better analytics lead, not a worse one. Knowing
+            what it costs to emit an event correctly changes how you write a
+            tracking spec. Watching a tag configuration produce 1,571 events in
+            one session because a trigger was too broad is a different kind of
+            education from reading about it.
+          </p>
+        </div>
+
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a
+            href={site.resume}
+            target="_blank"
+            rel="noopener"
+            class="border border-accent bg-accent px-5 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-accent-fg no-underline transition-opacity hover:opacity-85"
+            data-track="resume_download"
+          >
+            Download résumé ↗
+          </a>
+          <a
+            href="https://public.tableau.com/app/profile/kenneth.lam/viz/Resume_17168221183140/CV"
+            target="_blank"
+            rel="noopener"
+            class="border border-rule-strong px-5 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.14em] no-underline transition-colors hover:border-accent hover:text-accent"
+          >
+            Résumé as a Tableau viz ↗
+          </a>
+        </div>
+      </div>
+
+      <aside class="md:col-span-4">
+        <img
+          {...imageSet('/images/avatar.jpg')}
+          sizes="(min-width: 768px) 30vw, 100vw"
+          alt={`Portrait of ${site.name}`}
+          width="2048"
+          height="2048"
+          class="w-full border border-rule object-cover grayscale"
+        />
+      </aside>
+    </section>
+
+    <section class="pb-20">
+      <SectionHead num="01" label="Where" title="Career" />
+      <dl class="mt-10 border-t border-rule">
+        {
+          timeline.map((t) => (
+            <div class="grid gap-2 border-b border-rule py-6 md:grid-cols-12 md:gap-6">
+              <dt class="kicker pt-1 md:col-span-2">{t.period}</dt>
+              <dd class="md:col-span-10">
+                <p class="font-display text-3xl leading-none">{t.org}</p>
+                <p class="mt-3 max-w-[62ch] text-fg-muted">{t.what}</p>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="pb-24">
+      <SectionHead num="02" label="How" title="How I work" />
+      <div class="mt-10 grid gap-10 md:grid-cols-3">
+        <div class="border-t border-rule-strong pt-4">
+          <h3 class="kicker">Start from the decision</h3>
+          <p class="mt-4 text-fg-muted">
+            A metric nobody would act on differently is a metric not worth
+            building. I would rather ship three numbers a team uses than thirty
+            it admires.
+          </p>
+        </div>
+        <div class="border-t border-rule-strong pt-4">
+          <h3 class="kicker">Instrument before you analyse</h3>
+          <p class="mt-4 text-fg-muted">
+            Most analytics problems are collection problems wearing a costume.
+            Tracking specs, naming conventions and validation belong at the
+            start, not after the first report disappoints.
+          </p>
+        </div>
+        <div class="border-t border-rule-strong pt-4">
+          <h3 class="kicker">Build the small version</h3>
+          <p class="mt-4 text-fg-muted">
+            A working prototype settles arguments that a document extends.
+            Certified Professional Scrum Master, which mostly means I know when
+            the ceremony is helping and when it is not.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

@@ -1,0 +1,294 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Kenneth Lam — portfolio
+   Aesthetic: an analytics dossier printed as an editorial quarterly.
+   Bone paper, dense ink, one vermilion signal colour, hairline rules,
+   numbered index entries instead of a card wall.
+   --------------------------------------------------------------------------- */
+
+@theme {
+  --font-display: 'Instrument Serif', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-body: 'Karla', 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  /* Raw palette — semantic roles are mapped below so both themes stay honest. */
+  --color-bone: #f3efe5;
+  --color-bone-deep: #e7e0d0;
+  --color-ink: #17160f;
+  --color-ink-soft: #56503f;
+  --color-vermilion: #b73a1e;
+  --color-vermilion-bright: #e2643f;
+  --color-marine: #2c4a68;
+  --color-marine-bright: #7aa5cc;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Semantic roles — light is the base definition, never defined only in a
+   media query, so a page always has a complete palette. */
+:root {
+  color-scheme: light;
+  --c-surface: #f3efe5;
+  --c-surface-2: #ece6d8;
+  --c-fg: #17160f;
+  --c-fg-muted: #56503f;
+  --c-fg-faint: #8a8271;
+  --c-rule: #cec5ae;
+  --c-rule-strong: #a79c82;
+  --c-accent: #b73a1e;
+  --c-accent-fg: #fdfaf3;
+  --c-data: #2c4a68;
+  --c-grain: 0.045;
+}
+
+:root:not([data-theme='light']) {
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
+    --c-surface: #14140f;
+    --c-surface-2: #1d1c16;
+    --c-fg: #f0ece1;
+    --c-fg-muted: #a49c89;
+    --c-fg-faint: #6f6857;
+    --c-rule: #33312a;
+    --c-rule-strong: #4d4a3f;
+    --c-accent: #e2643f;
+    --c-accent-fg: #14140f;
+    --c-data: #7aa5cc;
+    --c-grain: 0.07;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --c-surface: #14140f;
+  --c-surface-2: #1d1c16;
+  --c-fg: #f0ece1;
+  --c-fg-muted: #a49c89;
+  --c-fg-faint: #6f6857;
+  --c-rule: #33312a;
+  --c-rule-strong: #4d4a3f;
+  --c-accent: #e2643f;
+  --c-accent-fg: #14140f;
+  --c-data: #7aa5cc;
+  --c-grain: 0.07;
+}
+
+/* Expose the semantic roles as Tailwind utilities (bg-surface, text-fg, …). */
+@theme inline {
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-fg: var(--c-fg);
+  --color-fg-muted: var(--c-fg-muted);
+  --color-fg-faint: var(--c-fg-faint);
+  --color-rule: var(--c-rule);
+  --color-rule-strong: var(--c-rule-strong);
+  --color-accent: var(--c-accent);
+  --color-accent-fg: var(--c-accent-fg);
+  --color-data: var(--c-data);
+}
+
+@layer base {
+  * {
+    border-color: var(--c-rule);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--c-surface);
+    color: var(--c-fg);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    font-feature-settings: 'kern' 1;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Paper grain. Fixed, non-interactive, cheap: one inline SVG turbulence. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: var(--c-grain);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: from-font;
+  }
+
+  ::selection {
+    background: var(--c-accent);
+    color: var(--c-accent-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--c-rule);
+  }
+}
+
+@layer components {
+  /* Mono kicker — "§ 02 / SELECTED WORK" */
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-fg-faint);
+  }
+
+  .rule-top {
+    border-top: 1px solid var(--c-rule);
+  }
+
+  /* Long-form case-study body copy. */
+  .prose-dossier {
+    max-width: 68ch;
+  }
+  .prose-dossier > * + * {
+    margin-top: 1.15em;
+  }
+  .prose-dossier h2 {
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    margin-top: 2.2em;
+    margin-bottom: 0.1em;
+  }
+  .prose-dossier h3 {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-fg-faint);
+    margin-top: 2.4em;
+  }
+  .prose-dossier a {
+    color: var(--c-accent);
+    text-decoration: underline;
+  }
+  .prose-dossier strong {
+    font-weight: 700;
+  }
+  .prose-dossier ul,
+  .prose-dossier ol {
+    padding-left: 1.1em;
+  }
+  .prose-dossier ul {
+    list-style: none;
+  }
+  .prose-dossier ul > li {
+    position: relative;
+    padding-left: 1.1em;
+  }
+  .prose-dossier ul > li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--c-accent);
+  }
+  .prose-dossier ol {
+    list-style: decimal;
+  }
+  .prose-dossier li + li {
+    margin-top: 0.45em;
+  }
+  .prose-dossier blockquote {
+    border-left: 2px solid var(--c-accent);
+    padding-left: 1.1em;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+  .prose-dossier code {
+    font-family: var(--font-mono);
+    font-size: 0.87em;
+    background: var(--c-surface-2);
+    padding: 0.12em 0.36em;
+  }
+  .prose-dossier pre {
+    background: var(--c-surface-2);
+    border: 1px solid var(--c-rule);
+    padding: 1rem 1.1rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+  }
+  .prose-dossier pre code {
+    background: none;
+    padding: 0;
+  }
+  .prose-dossier table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.94rem;
+  }
+  .prose-dossier th,
+  .prose-dossier td {
+    border-bottom: 1px solid var(--c-rule);
+    padding: 0.5em 0.6em 0.5em 0;
+    text-align: left;
+    vertical-align: top;
+  }
+  .prose-dossier th {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-fg-faint);
+    font-weight: 400;
+  }
+}
+
+/* Page-load reveal. Staggered via --i on the element. */
+@layer utilities {
+  .reveal {
+    animation: reveal 0.9s var(--ease-out-quart) backwards;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(0.7rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
