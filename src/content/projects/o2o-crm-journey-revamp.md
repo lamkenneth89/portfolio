@@ -1,4 +1,5 @@
 ---
+featuredRank: 4
 title: "O2O CRM Journey Revamp"
 category: "CRM"
 summary: "Led the online-to-offline journey revamp and the move to omnichannel campaign planning — the customer base grew 5× over three years."

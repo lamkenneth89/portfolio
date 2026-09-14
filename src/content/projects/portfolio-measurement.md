@@ -6,7 +6,7 @@ role: "Designed and built it"
 period: "2026"
 stack: ["GA4", "Google Tag Manager", "TypeScript", "Consent Mode v2"]
 hasCaseStudy: true
-featured: true
+featured: false
 order: 2
 ---
 

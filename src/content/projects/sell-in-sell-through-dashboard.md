@@ -6,6 +6,6 @@ role: Analytics lead
 stack: [Tableau, SQL, Alteryx]
 external: https://public.tableau.com/app/profile/kenneth.lam/viz/Sell-inSell-throughTrackingDashboard/Sell-inPerformanceDashboard
 thumb: /images/thumbs/Sell-in Performance Dashboard.jpg
-featured: true
+featured: false
 order: 1
 ---

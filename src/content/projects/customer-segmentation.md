@@ -1,4 +1,5 @@
 ---
+featuredRank: 3
 title: "Customer Segmentation Analysis"
 category: "Data Science"
 summary: "Two generations of segmentation — RFM first, then K-Means — built in Python and SQL and wired into campaign targeting."

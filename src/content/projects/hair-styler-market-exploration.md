@@ -9,6 +9,6 @@ metrics:
     label: "share growth in category"
 external: "/images/fulls/hair styler exploration.jpg"
 thumb: "/images/thumbs/hair styler exploration.jpg"
-featured: true
+featured: false
 order: 2
 ---

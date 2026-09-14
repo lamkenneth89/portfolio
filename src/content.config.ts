@@ -39,6 +39,8 @@ const projects = defineCollection({
     /** Employer work rebuilt on synthetic data — drives the disclosure banner. */
     confidential: z.boolean().default(false),
     featured: z.boolean().default(false),
+    /** Position within the featured block. `order` governs the index only. */
+    featuredRank: z.number().default(99),
     /** Only entries with a written case study get their own page. */
     hasCaseStudy: z.boolean().default(false),
     order: z.number().default(50),
