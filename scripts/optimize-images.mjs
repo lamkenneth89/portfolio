@@ -22,6 +22,13 @@ const SOURCE_FILES = [
   // The old site's sidebar backdrop (Mt Fuji), reused behind the profile card.
   // The bottom 8% holds a lens-flare dot that shows through on short cards.
   ['source-images/images/bg.jpg', 'root', { cropBottom: 0.08 }],
+  // The same Mt Fuji scene, uncropped and landscape: the intro backdrop.
+  // Full-bleed on wide screens, so it needs a larger derivative.
+  [
+    'source-images/images/P_20241122_124301.jpg',
+    'root',
+    { name: 'hero', widths: [960, 1600, 2400], cropBottom: 0.07 },
+  ],
 ];
 const OUT_ROOT = path.join(ROOT, 'public/images/opt');
 export const WIDTHS = [800, 1600];
@@ -71,9 +78,9 @@ for (const [relative, bucket, options = {}] of SOURCE_FILES) {
 
   const outDir = path.join(OUT_ROOT, bucket);
   await mkdir(outDir, { recursive: true });
-  const base = path.basename(relative).replace(/\.[^.]+$/, '');
+  const base = options.name ?? path.basename(relative).replace(/\.[^.]+$/, '');
 
-  for (const width of WIDTHS) {
+  for (const width of options.widths ?? WIDTHS) {
     const target = path.join(outDir, `${base}-${width}.webp`);
     if (!(await isStale(source, target))) {
       skipped += 1;

@@ -1,11 +1,12 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+/** Also the order the index renders in. */
 export const CATEGORIES = [
-  'Engineering & AI',
   'Business Intelligence',
   'Data Science',
   'CRM',
+  'Engineering & AI',
   'Market Research',
 ] as const;
 
@@ -33,6 +34,13 @@ const projects = defineCollection({
       })
       .optional(),
     repo: z.url().optional(),
+    /**
+     * Set on anything that spends Kenneth's API credit, holds his credentials,
+     * or lives in a private repo. The case study then shows this note instead
+     * of any way in — a public link to a metered endpoint is an invitation to
+     * run up the bill. Such an entry must not also carry a `demo` or `repo`.
+     */
+    restricted: z.string().optional(),
     /** Where an index row points when there is no case study page yet. */
     external: z.string().optional(),
     thumb: z.string().optional(),

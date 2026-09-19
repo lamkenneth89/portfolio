@@ -27,12 +27,12 @@ const destination = d.hasCaseStudy
 const num = String(index + 1).padStart(2, '0');
 ---
 
-<li class="border-b border-rule/70 last:border-b-0">
+<li class="border-b border-rule last:border-b-0">
   <a
     href={href}
     target={isOutbound ? '_blank' : undefined}
     rel={isOutbound ? 'noopener' : undefined}
-    class="group -mx-3 my-1 grid grid-cols-[2.2rem_1fr] items-start gap-x-3 gap-y-2 rounded-2xl px-3 py-4 no-underline transition-colors duration-300 hover:bg-surface-2 sm:grid-cols-[2.6rem_6rem_1fr_auto] sm:items-center sm:gap-x-5"
+    class="group -mx-3 my-1 grid grid-cols-[2.2rem_1fr] items-start gap-x-3 gap-y-2 rounded-2xl px-3 py-4 no-underline transition-colors duration-300 hover:bg-surface-3 hover:shadow-[inset_3px_0_0_var(--c-accent)] sm:grid-cols-[2.6rem_6rem_1fr_auto] sm:items-center sm:gap-x-5"
     data-track="project_card_click"
     data-project-id={project.id}
     data-project-category={d.category}
@@ -80,7 +80,7 @@ const num = String(index + 1).padStart(2, '0');
     </span>
 
     <span
-      class="col-start-2 hidden h-9 w-9 place-items-center rounded-full bg-surface-3/60 text-sm text-fg-faint transition duration-300 group-hover:translate-x-1 group-hover:bg-brand-soft group-hover:text-accent sm:col-start-4 sm:grid"
+      class="col-start-2 hidden h-9 w-9 place-items-center rounded-full border border-rule bg-surface text-sm text-fg-muted transition duration-300 group-hover:translate-x-1 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-fg sm:col-start-4 sm:grid"
       aria-hidden="true"
     >
       {isOutbound ? '↗' : '→'}

@@ -22,6 +22,13 @@ const { project } = Astro.props;
 const d = project.data;
 const { Content } = await render(project);
 
+// Fail the build rather than publish a way into something metered or private.
+if (d.restricted && (d.demo || d.repo)) {
+  throw new Error(
+    `${project.id} is restricted but still carries a ${d.demo ? 'demo' : 'repo'} link`,
+  );
+}
+
 const dossier = [
   d.role && { label: 'Role', value: d.role },
   d.period && { label: 'Period', value: d.period },
@@ -114,6 +121,29 @@ const jsonLd = {
           rebuilt from scratch on generated data to demonstrate the method — no
           employer data, schema or client names are used anywhere on this page.
         </p>
+      )
+    }
+
+    {
+      d.restricted && (
+        <div class="panel mt-10 flex gap-4 px-5 py-5 sm:px-6">
+          <span
+            class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-rule bg-surface text-lg"
+            aria-hidden="true"
+          >
+            🔒
+          </span>
+          <div>
+            <p class="font-semibold">Private deployment — no public demo</p>
+            <p class="mt-1 text-[0.95rem] text-fg-muted">{d.restricted}</p>
+            <a
+              href={url('/#contact')}
+              class="mt-3 inline-block text-[0.95rem] font-semibold text-accent hover:underline"
+            >
+              Ask for a walkthrough →
+            </a>
+          </div>
+        </div>
       )
     }
 

@@ -24,20 +24,25 @@
    explicit choice from the header toggle. */
 :root {
   color-scheme: light;
-  --c-surface: #fbf7f1;
-  --c-surface-2: #f3ece2;
-  --c-surface-3: #ece2d5;
+  /* Separation is carried by borders, not by near-identical fills: on a
+     low-contrast monitor the first palette's rules (1.15:1) disappeared.
+     Borders are now 2.2:1 against the page; every text colour stays at or
+     above 4.4:1 on every surface it sits on, hover states included. */
+  --c-surface: #fdfaf5;
+  --c-surface-rgb: 253 250 245;
+  --c-surface-2: #f0e4d2;
+  --c-surface-3: #e8d8c2;
   --c-fg: #3d3530;
-  --c-fg-muted: #74685e;
-  --c-fg-faint: #7a6d61;
-  --c-rule: #e8dfd3;
-  --c-rule-strong: #d6cabb;
-  /* Text-safe teal (4.9:1 on cream). The brand teal itself is too light for
-     text and is used for fills, glows and decoration only. */
-  --c-accent: #267a61;
+  --c-fg-muted: #65594f;
+  --c-fg-faint: #6b5e52;
+  --c-rule: #bfa78a;
+  --c-rule-strong: #9c8466;
+  /* Text-safe teal. The brand teal itself is too light for text and is used
+     for fills, glows and decoration only. */
+  --c-accent: #1f6e57;
   --c-accent-fg: #ffffff;
   --c-brand: #49bf9d;
-  --c-brand-soft: rgb(73 191 157 / 0.12);
+  --c-brand-soft: rgb(73 191 157 / 0.22);
   --c-warm-glow: rgb(244 182 128 / 0.22);
   --c-shadow: 30 20 12;
 }
@@ -45,17 +50,18 @@
 :root[data-theme='dark'] {
   color-scheme: dark;
   --c-surface: #1f1815;
-  --c-surface-2: #2a211d;
-  --c-surface-3: #342925;
+  --c-surface-rgb: 31 24 21;
+  --c-surface-2: #2e241f;
+  --c-surface-3: #3d2f28;
   --c-fg: #efe6dc;
-  --c-fg-muted: #b3a597;
-  --c-fg-faint: #9a8c7f;
-  --c-rule: #3a2f2a;
-  --c-rule-strong: #4d3f38;
+  --c-fg-muted: #bfb1a3;
+  --c-fg-faint: #a89a8c;
+  --c-rule: #5e4c41;
+  --c-rule-strong: #7a6556;
   --c-accent: #5cc6a7;
   --c-accent-fg: #1f1815;
   --c-brand: #5cc6a7;
-  --c-brand-soft: rgb(92 198 167 / 0.12);
+  --c-brand-soft: rgb(92 198 167 / 0.2);
   --c-warm-glow: rgb(214 140 90 / 0.12);
   --c-shadow: 0 0 0;
 }
@@ -188,6 +194,7 @@
   }
   .btn-ghost {
     border: 1px solid var(--c-rule-strong);
+    border-width: 1.5px;
     color: var(--c-fg);
     background: color-mix(in srgb, var(--c-surface) 70%, transparent);
   }
@@ -198,6 +205,37 @@
   .btn-sm {
     padding: 0.45rem 0.95rem;
     font-size: 0.84rem;
+  }
+
+  /* The wash over the intro photo. Heavy where the text sits, thin where the
+     photo should read, and fading into the page at the bottom so the next
+     section follows on without a seam. Built from the surface colour, so dark
+     mode gets a dark wash automatically. */
+  .hero-veil {
+    background:
+      linear-gradient(to bottom, transparent 72%, var(--c-surface) 100%),
+      radial-gradient(50rem 30rem at 0% 0%, var(--c-warm-glow), transparent 70%),
+      linear-gradient(
+        to bottom,
+        rgb(var(--c-surface-rgb) / 0.84) 0%,
+        rgb(var(--c-surface-rgb) / 0.78) 50%,
+        rgb(var(--c-surface-rgb) / 0.3) 75%,
+        rgb(var(--c-surface-rgb) / 0.15) 100%
+      );
+  }
+  @media (min-width: 768px) {
+    .hero-veil {
+      background:
+        linear-gradient(to bottom, transparent 78%, var(--c-surface) 100%),
+        radial-gradient(50rem 30rem at 0% 0%, var(--c-warm-glow), transparent 70%),
+        linear-gradient(
+          to right,
+          rgb(var(--c-surface-rgb) / 0.9) 0%,
+          rgb(var(--c-surface-rgb) / 0.8) 48%,
+          rgb(var(--c-surface-rgb) / 0.3) 70%,
+          rgb(var(--c-surface-rgb) / 0.05) 100%
+        );
+    }
   }
 
   /* Soft framed media: rounded, hairline, a gentle lift. */
@@ -213,8 +251,10 @@
   /* Soft panels for dossier lists, notes and forms. */
   .panel {
     border-radius: var(--radius-soft);
-    background: color-mix(in srgb, var(--c-surface-2) 75%, transparent);
+    background: var(--c-surface-2);
     border: 1px solid var(--c-rule);
+    box-shadow: 0 1px 2px rgb(var(--c-shadow) / 0.06),
+      0 10px 28px -20px rgb(var(--c-shadow) / 0.3);
   }
 
   .field {
@@ -237,6 +277,7 @@
   .chip {
     display: inline-block;
     border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--c-brand) 55%, transparent);
     background: var(--c-brand-soft);
     color: var(--c-accent);
     padding: 0.14rem 0.65rem;

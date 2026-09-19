@@ -5,33 +5,48 @@ import { imageSet } from '../lib/url';
 interface Props {
   /** Show the fact list under the name (home page). */
   withFacts?: boolean;
+  /**
+   * Carry the old site's Mt Fuji photo inside the card. Off on the home page,
+   * where the whole intro section already sits on that photo.
+   */
+  backdrop?: boolean;
 }
-const { withFacts = true } = Astro.props;
+const { withFacts = true, backdrop = true } = Astro.props;
 ---
 
-<!-- The old site's left sidebar, brought forward: the Mt Fuji photo it used as
-     a backdrop, with the portrait and name set on top of it. -->
+<!-- The old site's left sidebar, brought forward: the portrait and name set on
+     the Mt Fuji photo it used as a backdrop. -->
 <div
-  class="relative isolate overflow-hidden rounded-[1.4rem] bg-strata-brown px-6 pb-6 pt-9 text-center text-white shadow-[0_24px_50px_-26px_rgb(30_20_12/0.55)]"
+  class:list={[
+    'relative isolate overflow-hidden rounded-[1.4rem] px-6 pb-6 pt-9 text-center',
+    backdrop
+      ? 'bg-strata-brown text-white shadow-[0_24px_50px_-26px_rgb(30_20_12/0.55)]'
+      : 'border border-rule bg-[rgb(var(--c-surface-rgb)/0.9)] text-fg shadow-[0_24px_50px_-28px_rgb(30_20_12/0.45)] backdrop-blur-md',
+  ]}
 >
-  {/* Taller than the card and anchored to its bottom: the photo fills the
-      card by height, so object-position cannot move it vertically. Oversizing
-      lifts the Fuji summit above the fact panel instead of behind it. */}
-  <img
-    {...imageSet('/images/bg.jpg')}
-    sizes="(min-width: 768px) 30vw, 100vw"
-    alt=""
-    loading="eager"
-    decoding="async"
-    class="absolute inset-x-0 bottom-0 -z-20 h-[150%] w-full object-cover object-bottom"
-  />
-  {/* Warm brown wash, heavier towards the bottom: keeps white text legible
-      over a bright sky and pulls the cool photo into the warm palette. */}
-  <div
-    class="absolute inset-0 -z-10 bg-gradient-to-b from-[rgb(31_24_21/0.14)] via-[rgb(31_24_21/0.22)] to-[rgb(31_24_21/0.62)]"
-    aria-hidden="true"
-  >
-  </div>
+  {
+    backdrop && (
+      <>
+        {/* Taller than the card and anchored to its bottom: the photo fills
+            the card by height, so object-position cannot move it vertically.
+            Oversizing lifts the Fuji summit clear of the content instead. */}
+        <img
+          {...imageSet('/images/bg.jpg')}
+          sizes="(min-width: 768px) 30vw, 100vw"
+          alt=""
+          loading="eager"
+          decoding="async"
+          class="absolute inset-x-0 bottom-0 -z-20 h-[150%] w-full object-cover object-bottom"
+        />
+        {/* Warm brown wash, heavier towards the bottom: keeps white text
+            legible over a bright sky and warms the cool photo. */}
+        <div
+          class="absolute inset-0 -z-10 bg-gradient-to-b from-[rgb(31_24_21/0.14)] via-[rgb(31_24_21/0.22)] to-[rgb(31_24_21/0.62)]"
+          aria-hidden="true"
+        />
+      </>
+    )
+  }
 
   <div
     class="mx-auto w-36 rounded-full bg-gradient-to-br from-brand to-[#f4b680] p-[4px] md:w-40"
@@ -45,28 +60,52 @@ const { withFacts = true } = Astro.props;
       class="aspect-square w-full rounded-full border-4 border-white/90 object-cover"
     />
   </div>
-  <p class="mt-4 font-display text-2xl [text-shadow:0_1px_12px_rgb(0_0_0/0.35)]">
+  <p
+    class:list={[
+      'mt-4 font-display text-2xl',
+      backdrop && '[text-shadow:0_1px_12px_rgb(0_0_0/0.35)]',
+    ]}
+  >
     {site.name}
   </p>
-  <p class="text-[0.93rem] text-white/85 [text-shadow:0_1px_8px_rgb(0_0_0/0.35)]">
+  <p
+    class:list={[
+      'text-[0.93rem]',
+      backdrop
+        ? 'text-white/85 [text-shadow:0_1px_8px_rgb(0_0_0/0.35)]'
+        : 'text-fg-muted',
+    ]}
+  >
     {site.role}
   </p>
 
   {/* Without the fact list the card is too short for the summit to clear the
       portrait, so leave room for it — much as the old sidebar did. */}
-  {!withFacts && <div class="h-60" aria-hidden="true" />}
+  {backdrop && !withFacts && <div class="h-60" aria-hidden="true" />}
 
   {
     withFacts && (
-      <dl class="mt-24 rounded-2xl bg-[rgb(31_24_21/0.52)] px-4 py-1 text-left backdrop-blur-md">
+      <dl
+        class:list={[
+          'rounded-2xl px-4 py-1 text-left',
+          backdrop
+            ? 'mt-24 bg-[rgb(31_24_21/0.52)] backdrop-blur-md'
+            : 'mt-6 border border-rule bg-surface-2',
+        ]}
+      >
         {facts.map((f, i) => (
           <div
             class:list={[
               'flex justify-between gap-4 py-2.5',
-              i > 0 && 'border-t border-white/15',
+              i > 0 && (backdrop ? 'border-t border-white/15' : 'border-t border-rule'),
             ]}
           >
-            <dt class="pt-0.5 text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-white/70">
+            <dt
+              class:list={[
+                'pt-0.5 text-[0.72rem] font-semibold uppercase tracking-[0.12em]',
+                backdrop ? 'text-white/70' : 'text-fg-faint',
+              ]}
+            >
               {f.label}
             </dt>
             <dd class="text-right text-[0.92rem]">{f.value}</dd>

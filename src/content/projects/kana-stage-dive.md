@@ -11,7 +11,6 @@ demo:
   label: "Play it in a new tab"
   fallbackImage: "/images/thumbs/kana-stage-dive.jpg"
 thumb: "/images/thumbs/kana-stage-dive.jpg"
-repo: "https://github.com/lamkenneth89/godot-game"
 hasCaseStudy: true
 order: 4
 ---

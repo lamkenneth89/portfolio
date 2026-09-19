@@ -6,10 +6,7 @@ summary: "Upload a recording, get back a speaker-labelled transcript and a struc
 role: "Built and deployed it"
 period: "2026"
 stack: ["Gemini 3 Flash", "React 19", "TypeScript", "Vite", "Cloud Run"]
-demo:
-  type: "link"
-  url: "https://trilingual-audio-analyst-756761419490.us-west1.run.app/"
-  label: "Open the live app"
+restricted: "The live app runs on my own Gemini API key and the source is in a private repository, so it is not open to the public. Happy to demo it on a call."
 thumb: "/images/covers/audio-analyst.svg"
 hasCaseStudy: true
 featured: true
@@ -81,4 +78,6 @@ reasonable worse design if nobody makes those calls.
 It runs on a scale-to-zero container, so a first request after an idle period
 waits for a cold start. Long recordings are bounded by the context window
 rather than by any queueing the app does. And it is a personal deployment on a
-personal key — not a service with an SLA.
+personal key — not a service with an SLA, which is exactly why there is no
+public link to it here: an open endpoint billed per request is an invitation
+for someone else to spend the credit.
