@@ -18,7 +18,7 @@ export function url(path: string): string {
 export function imageSet(src: string): { src: string; srcset?: string } {
   const match =
     src.match(/^\/images\/(thumbs|fulls)\/(.+)\.(jpe?g|png)$/i) ??
-    src.match(/^\/images\/()(avatar)\.jpg$/i);
+    src.match(/^\/images\/()(avatar|bg)\.jpg$/i);
   if (!match) return { src: url(encodeURI(src)) };
 
   const folder = match[1] || 'root';

@@ -17,7 +17,12 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const SOURCE_DIRS = ['source-images/images/thumbs', 'source-images/images/fulls'];
 // The portrait sits at the images root next to a pile of unused originals,
 // so it is listed explicitly rather than sweeping that folder.
-const SOURCE_FILES = [['source-images/images/avatar.jpg', 'root']];
+const SOURCE_FILES = [
+  ['source-images/images/avatar.jpg', 'root'],
+  // The old site's sidebar backdrop (Mt Fuji), reused behind the profile card.
+  // The bottom 8% holds a lens-flare dot that shows through on short cards.
+  ['source-images/images/bg.jpg', 'root', { cropBottom: 0.08 }],
+];
 const OUT_ROOT = path.join(ROOT, 'public/images/opt');
 export const WIDTHS = [800, 1600];
 
@@ -60,7 +65,7 @@ for (const dir of SOURCE_DIRS) {
   }
 }
 
-for (const [relative, bucket] of SOURCE_FILES) {
+for (const [relative, bucket, options = {}] of SOURCE_FILES) {
   const source = path.join(ROOT, relative);
   if (!existsSync(source)) continue;
 
@@ -74,7 +79,17 @@ for (const [relative, bucket] of SOURCE_FILES) {
       skipped += 1;
       continue;
     }
-    await sharp(source)
+    let pipeline = sharp(source);
+    if (options.cropBottom) {
+      const { width: w, height: h } = await sharp(source).metadata();
+      pipeline = pipeline.extract({
+        left: 0,
+        top: 0,
+        width: w,
+        height: Math.round(h * (1 - options.cropBottom)),
+      });
+    }
+    await pipeline
       .resize({ width, withoutEnlargement: true })
       .webp({ quality: 78 })
       .toFile(target);

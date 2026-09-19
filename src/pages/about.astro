@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import SectionHead from '../components/SectionHead.astro';
 import { site } from '../lib/site';
-import { imageSet } from '../lib/url';
+import ProfileCard from '../components/ProfileCard.astro';
 
 const timeline = [
   {
@@ -85,14 +85,7 @@ const timeline = [
       </div>
 
       <aside class="md:col-span-4">
-        <img
-          {...imageSet('/images/avatar.jpg')}
-          sizes="(min-width: 768px) 30vw, 100vw"
-          alt={`Portrait of ${site.name}`}
-          width="1024"
-          height="1024"
-          class="aspect-square w-full rounded-full border-[6px] border-surface object-cover shadow-[0_24px_50px_-28px_rgb(30_20_12/0.45)]"
-        />
+        <ProfileCard withFacts={false} />
       </aside>
     </section>
 
