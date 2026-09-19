@@ -48,7 +48,9 @@ const jsonLd = {
 <Base
   title={`${d.title} — ${site.name}`}
   description={d.summary}
-  ogImage={d.thumb ?? '/images/avatar.jpg'}
+  ogImage={d.thumb}
+  ogImageAlt={`${d.title} — ${site.name}`}
+  ogType="article"
   jsonLd={jsonLd}
 >
   <article

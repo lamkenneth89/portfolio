@@ -69,6 +69,23 @@ for (const dir of SOURCE_DIRS) {
         .toFile(target);
       generated += 1;
     }
+
+    // Share-card crop for thumbnails that front a case study. LinkedIn and
+    // WhatsApp want a 1200×630 JPEG; WebP and SVG are not reliably read.
+    if (path.basename(dir) === 'thumbs') {
+      const ogDir = path.join(OUT_ROOT, 'og');
+      await mkdir(ogDir, { recursive: true });
+      const target = path.join(ogDir, `${base}.jpg`);
+      if (!(await isStale(source, target))) {
+        skipped += 1;
+        continue;
+      }
+      await sharp(source)
+        .resize(1200, 630, { fit: 'cover', position: 'attention' })
+        .jpeg({ quality: 82, mozjpeg: true })
+        .toFile(target);
+      generated += 1;
+    }
   }
 }
 

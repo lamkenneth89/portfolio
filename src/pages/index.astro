@@ -68,6 +68,7 @@ const jsonLd = {
   email: `mailto:${site.email}`,
   address: { '@type': 'PostalAddress', addressLocality: site.location },
   url: new URL(url('/'), Astro.site).href,
+  image: new URL(url('/images/opt/root/avatar-800.webp'), Astro.site).href,
   sameAs: site.socials.map((s) => s.href),
 };
 ---

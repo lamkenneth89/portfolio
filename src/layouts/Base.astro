@@ -9,8 +9,14 @@ import { url } from '../lib/url';
 interface Props {
   title: string;
   description?: string;
-  /** Absolute or site-relative path to the social preview image. */
+  /**
+   * Social preview image. A case-study thumbnail is swapped for its 1200×630
+   * JPEG crop; anything a crawler cannot read (SVG, WebP, originals that are
+   * not deployed) falls back to the site's share card.
+   */
   ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: 'website' | 'article';
   /** Rendered into <head> as JSON-LD. */
   jsonLd?: Record<string, unknown>;
 }
@@ -18,14 +24,25 @@ interface Props {
 const {
   title,
   description = site.tagline,
-  ogImage = '/images/avatar.jpg',
+  ogImage,
+  ogImageAlt,
+  ogType = 'website',
   jsonLd,
 } = Astro.props;
 
+// Built by scripts/make-og.mjs and committed.
+const SHARE_CARD = '/og/kenneth-lam.jpg';
+const SHARE_CARD_ALT =
+  'Kenneth Lam — Analytics, CRM and AI-assisted engineering. Portrait over a view of Mt Fuji.';
+
+const thumbCrop = ogImage?.match(/^\/images\/thumbs\/(.+)\.(jpe?g|png)$/i);
+const ogPath = thumbCrop
+  ? encodeURI(`/images/opt/og/${thumbCrop[1]}.jpg`)
+  : SHARE_CARD;
+const ogAlt = ogPath === SHARE_CARD ? SHARE_CARD_ALT : (ogImageAlt ?? title);
+
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const ogImageAbsolute = ogImage.startsWith('http')
-  ? ogImage
-  : new URL(url(ogImage), Astro.site).href;
+const ogImageAbsolute = new URL(url(ogPath), Astro.site).href;
 ---
 
 <!doctype html>
@@ -37,14 +54,26 @@ const ogImageAbsolute = ogImage.startsWith('http')
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
     <link rel="sitemap" href={url('/sitemap-index.xml')} />
+    <meta name="author" content={site.name} />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageAbsolute} />
+    <meta property="og:image:secure_url" content={ogImageAbsolute} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogAlt} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbsolute} />
+    <meta name="twitter:image:alt" content={ogAlt} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
