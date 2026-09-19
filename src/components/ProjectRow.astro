@@ -27,19 +27,19 @@ const destination = d.hasCaseStudy
 const num = String(index + 1).padStart(2, '0');
 ---
 
-<li class="border-b border-rule">
+<li class="border-b border-rule/70 last:border-b-0">
   <a
     href={href}
     target={isOutbound ? '_blank' : undefined}
     rel={isOutbound ? 'noopener' : undefined}
-    class="group grid grid-cols-[2.2rem_1fr] items-start gap-x-3 gap-y-2 py-5 no-underline transition-colors hover:bg-surface-2 sm:grid-cols-[3rem_5.5rem_1fr_auto] sm:items-center sm:gap-x-5"
+    class="group -mx-3 my-1 grid grid-cols-[2.2rem_1fr] items-start gap-x-3 gap-y-2 rounded-2xl px-3 py-4 no-underline transition-colors duration-300 hover:bg-surface-2 sm:grid-cols-[2.6rem_6rem_1fr_auto] sm:items-center sm:gap-x-5"
     data-track="project_card_click"
     data-project-id={project.id}
     data-project-category={d.category}
     data-destination-type={destination}
   >
     <span
-      class="pt-1 font-mono text-[0.7rem] tracking-[0.1em] text-fg-faint transition-colors group-hover:text-accent sm:pt-0"
+      class="pt-1 font-display text-lg text-fg-faint transition-colors group-hover:text-accent sm:pt-0"
     >
       {num}
     </span>
@@ -48,14 +48,14 @@ const num = String(index + 1).padStart(2, '0');
       // The index is for scanning; on a phone eighteen full-width thumbnails
       // would turn it into a very long scroll, so the image is desktop-only.
       d.thumb && (
-        <span class="col-start-2 row-start-1 hidden overflow-hidden border border-rule sm:block sm:w-[5.5rem]">
+        <span class="col-start-2 row-start-1 hidden overflow-hidden rounded-lg border border-rule sm:block sm:w-[6rem]">
           <img
             {...imageSet(d.thumb)}
             sizes="88px"
             alt=""
             loading="lazy"
             decoding="async"
-            class="aspect-[16/9] w-full object-cover opacity-80 saturate-[0.65] transition duration-500 group-hover:scale-[1.04] group-hover:opacity-100 group-hover:saturate-100"
+            class="aspect-[16/9] w-full object-cover transition duration-500 group-hover:scale-[1.05]"
           />
         </span>
       )
@@ -63,16 +63,16 @@ const num = String(index + 1).padStart(2, '0');
 
     <span class="col-start-2 row-start-1 block sm:col-start-3">
       <span
-        class="block font-display text-2xl leading-tight transition-colors group-hover:text-accent sm:text-[1.7rem]"
+        class="block font-display text-[1.35rem] leading-snug transition-colors group-hover:text-accent sm:text-[1.5rem]"
       >
         {d.title}
       </span>
-      <span class="mt-1 block max-w-[54ch] text-[0.93rem] text-fg-muted">
+      <span class="mt-1 block max-w-[58ch] text-[0.97rem] text-fg-muted">
         {d.summary}
       </span>
       {
         d.stack.length > 0 && (
-          <span class="mt-2 block font-mono text-[0.65rem] uppercase tracking-[0.12em] text-fg-faint">
+          <span class="mt-1.5 block text-[0.84rem] text-fg-faint">
             {d.stack.join(' · ')}
           </span>
         )
@@ -80,7 +80,7 @@ const num = String(index + 1).padStart(2, '0');
     </span>
 
     <span
-      class="col-start-2 hidden font-mono text-[0.7rem] text-fg-faint transition-transform duration-300 group-hover:translate-x-1 group-hover:text-accent sm:col-start-4 sm:block"
+      class="col-start-2 hidden h-9 w-9 place-items-center rounded-full bg-surface-3/60 text-sm text-fg-faint transition duration-300 group-hover:translate-x-1 group-hover:bg-brand-soft group-hover:text-accent sm:col-start-4 sm:grid"
       aria-hidden="true"
     >
       {isOutbound ? '↗' : '→'}

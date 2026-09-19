@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
-  <rect width="1600" height="900" fill="#14140f"/>
+  <rect width="1600" height="900" fill="#1f1815"/>
   <g opacity="0.35">
-    <line x1="110" y1="120" x2="1490" y2="120" stroke="#8a8271" stroke-width="1"/>
-    <line x1="110" y1="230" x2="1490" y2="230" stroke="#8a8271" stroke-width="1"/>
-    <line x1="110" y1="340" x2="1490" y2="340" stroke="#8a8271" stroke-width="1"/>
-    <line x1="110" y1="450" x2="1490" y2="450" stroke="#8a8271" stroke-width="1"/>
-    <line x1="110" y1="560" x2="1490" y2="560" stroke="#8a8271" stroke-width="1"/>
-    <line x1="110" y1="670" x2="1490" y2="670" stroke="#8a8271" stroke-width="1"/>
-    <line x1="110" y1="780" x2="1490" y2="780" stroke="#8a8271" stroke-width="1"/>
+    <line x1="110" y1="120" x2="1490" y2="120" stroke="#b3a597" stroke-width="1"/>
+    <line x1="110" y1="230" x2="1490" y2="230" stroke="#b3a597" stroke-width="1"/>
+    <line x1="110" y1="340" x2="1490" y2="340" stroke="#b3a597" stroke-width="1"/>
+    <line x1="110" y1="450" x2="1490" y2="450" stroke="#b3a597" stroke-width="1"/>
+    <line x1="110" y1="560" x2="1490" y2="560" stroke="#b3a597" stroke-width="1"/>
+    <line x1="110" y1="670" x2="1490" y2="670" stroke="#b3a597" stroke-width="1"/>
+    <line x1="110" y1="780" x2="1490" y2="780" stroke="#b3a597" stroke-width="1"/>
   </g>
-  <rect x="0" y="0" width="14" height="900" fill="#e2643f"/>
-  <text x="110" y="180" font-family="ui-monospace, 'IBM Plex Mono', monospace" font-size="28" fill="#8a8271" letter-spacing="6">KOTLIN  ·  GTM  ·  FIREBASE ANALYTICS</text>
-  <text x="1400" y="200" font-family="Georgia, serif" font-size="110" fill="#e2643f" opacity="0.85">⌗</text>
-  <text x="110" y="400" font-family="Georgia, 'Times New Roman', serif" font-size="116" fill="#f0ece1">PayLab</text>
-    <text x="110" y="528" font-family="Georgia, 'Times New Roman', serif" font-size="116" fill="#e2643f">Mobile Measurement</text>
-  <line x1="110" y1="660" x2="1490" y2="660" stroke="#8a8271" stroke-width="2" opacity="0.6"/>
-  <text x="110" y="740" font-family="ui-monospace, 'IBM Plex Mono', monospace" font-size="30" fill="#8a8271" letter-spacing="1.5">13 events</text>
-    <text x="410" y="740" font-family="ui-monospace, 'IBM Plex Mono', monospace" font-size="30" fill="#8a8271" letter-spacing="1.5">8 dimensions</text>
-    <text x="710" y="740" font-family="ui-monospace, 'IBM Plex Mono', monospace" font-size="30" fill="#8a8271" letter-spacing="1.5">4 failure modes</text>
+  <rect x="0" y="0" width="14" height="900" fill="#5cc6a7"/>
+  <text x="110" y="180" font-family="ui-monospace, 'IBM Plex Mono', monospace" font-size="28" fill="#b3a597" letter-spacing="6">KOTLIN  ·  GTM  ·  FIREBASE ANALYTICS</text>
+  <text x="1400" y="200" font-family="Georgia, serif" font-size="110" fill="#5cc6a7" opacity="0.85">⌗</text>
+  <text x="110" y="400" font-family="Georgia, 'Times New Roman', serif" font-size="116" fill="#efe6dc">PayLab</text>
+    <text x="110" y="528" font-family="Georgia, 'Times New Roman', serif" font-size="116" fill="#5cc6a7">Mobile Measurement</text>
+  <line x1="110" y1="660" x2="1490" y2="660" stroke="#b3a597" stroke-width="2" opacity="0.6"/>
+  <text x="110" y="740" font-family="ui-monospace, 'IBM Plex Mono', monospace" font-size="30" fill="#b3a597" letter-spacing="1.5">13 events</text>
+    <text x="410" y="740" font-family="ui-monospace, 'IBM Plex Mono', monospace" font-size="30" fill="#b3a597" letter-spacing="1.5">8 dimensions</text>
+    <text x="710" y="740" font-family="ui-monospace, 'IBM Plex Mono', monospace" font-size="30" fill="#b3a597" letter-spacing="1.5">4 failure modes</text>
 </svg>

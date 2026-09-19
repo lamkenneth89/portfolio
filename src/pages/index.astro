@@ -68,16 +68,18 @@ const jsonLd = {
 ---
 
 <Base title={`${site.name} — ${site.role}`} jsonLd={jsonLd}>
-  <div class="mx-auto max-w-[80rem] px-5 sm:px-8">
+  <div class="mx-auto max-w-[76rem] px-5 sm:px-8">
     <!-- ── Hero ───────────────────────────────────────────────────────── -->
-    <section class="grid gap-10 pb-20 pt-16 md:grid-cols-12 md:gap-12 md:pt-24">
-      <div class="md:col-span-8">
-        <p class="kicker reveal" style="--i:0">
-          Analytics · CRM · AI-assisted engineering
+    <section
+      class="grid items-center gap-12 pb-24 pt-14 md:grid-cols-12 md:gap-14 md:pt-24"
+    >
+      <div class="md:col-span-7 lg:col-span-8">
+        <p class="reveal" style="--i:0">
+          <span class="chip">Analytics · CRM · AI-assisted engineering</span>
         </p>
 
         <h1
-          class="reveal mt-6 text-[clamp(2.7rem,7.2vw,5.4rem)]"
+          class="reveal mt-6 text-[clamp(2.5rem,6.2vw,4.6rem)]"
           style="--i:1"
         >
           I turn messy customer data into decisions{' '}
@@ -85,7 +87,7 @@ const jsonLd = {
         </h1>
 
         <p
-          class="reveal mt-8 max-w-[58ch] text-lg text-fg-muted"
+          class="reveal mt-7 max-w-[58ch] text-[1.12rem] text-fg-muted"
           style="--i:2"
         >
           Fifteen years of consumer insight, business intelligence and CRM at
@@ -102,52 +104,56 @@ const jsonLd = {
             href={site.resume}
             target="_blank"
             rel="noopener"
-            class="border border-accent bg-accent px-5 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-accent-fg no-underline transition-opacity hover:opacity-85"
+            class="btn btn-primary"
             data-track="resume_download"
           >
             Download résumé ↗
           </a>
-          <a
-            href="#work"
-            class="border border-rule-strong px-5 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.14em] no-underline transition-colors hover:border-accent hover:text-accent"
-          >
-            Selected work
-          </a>
+          <a href="#work" class="btn btn-ghost">See selected work ↓</a>
         </div>
       </div>
 
-      <!-- Dossier column -->
-      <aside class="reveal self-end md:col-span-4" style="--i:4">
-        <img
-          {...imageSet('/images/avatar.jpg')}
-          sizes="144px"
-          alt={`Portrait of ${site.name}`}
-          width="2048"
-          height="2048"
-          class="mb-7 aspect-square w-28 border border-rule object-cover grayscale md:w-36"
-        />
-        <dl class="border-t border-rule">
-          {
-            facts.map((f) => (
-              <div class="flex justify-between gap-4 border-b border-rule py-2.5">
-                <dt class="kicker pt-0.5">{f.label}</dt>
-                <dd class="text-right text-[0.9rem]">{f.value}</dd>
-              </div>
-            ))
-          }
-        </dl>
+      <!-- Profile card -->
+      <aside class="reveal md:col-span-5 lg:col-span-4" style="--i:4">
+        <div class="panel px-6 pb-5 pt-8 text-center shadow-[0_18px_40px_-28px_rgb(30_20_12/0.35)]">
+          <div
+            class="mx-auto w-40 rounded-full bg-gradient-to-br from-brand to-[#f4b680] p-[5px] md:w-44"
+          >
+            <img
+              {...imageSet('/images/avatar.jpg')}
+              sizes="176px"
+              alt={`Portrait of ${site.name}`}
+              width="1024"
+              height="1024"
+              class="aspect-square w-full rounded-full border-4 border-surface object-cover"
+            />
+          </div>
+          <p class="mt-4 font-display text-2xl">{site.name}</p>
+          <p class="text-[0.92rem] text-fg-muted">{site.location}</p>
+
+          <dl class="mt-5 text-left">
+            {
+              facts.map((f) => (
+                <div class="flex justify-between gap-4 border-t border-rule py-2.5">
+                  <dt class="kicker pt-0.5">{f.label}</dt>
+                  <dd class="text-right text-[0.93rem]">{f.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
       </aside>
     </section>
 
     <!-- ── Selected work ──────────────────────────────────────────────── -->
-    <section id="work" class="scroll-mt-16 pb-20" data-section="work">
+    <section id="work" class="scroll-mt-20 pb-24" data-section="work">
       <SectionHead
         num="01"
         label="Selected work"
         title={`${featuredWord.charAt(0).toUpperCase()}${featuredWord.slice(1)} that show the range`}
         note={`${sorted.length} projects in the index`}
       />
-      <div class="mt-14 space-y-20">
+      <div class="mt-12 space-y-20">
         {
           featured.map((project, i) => (
             <FeaturedEntry project={project} index={i} />
@@ -157,20 +163,17 @@ const jsonLd = {
     </section>
 
     <!-- ── Full index ─────────────────────────────────────────────────── -->
-    <section id="index" class="scroll-mt-16 pb-20" data-section="index">
+    <section id="index" class="scroll-mt-20 pb-24" data-section="index">
       <SectionHead num="02" label="Index" title="Everything, by discipline" />
-      <div class="mt-12 space-y-14">
+      <div class="mt-10 space-y-8">
         {
           byCategory.map((group) => (
-            <div>
-              <h3 class="kicker border-b border-rule-strong pb-2">
+            <div class="panel px-5 pb-2 pt-5 sm:px-7">
+              <h3 class="kicker flex items-center justify-between">
                 {group.category}
-                <span class="text-fg-faint">
-                  {' '}
-                  — {group.items.length}
-                </span>
+                <span class="chip">{group.items.length}</span>
               </h3>
-              <ol class="mt-1">
+              <ol class="mt-2">
                 {group.items.map((project, i) => (
                   <ProjectRow project={project} index={i} />
                 ))}
@@ -182,16 +185,22 @@ const jsonLd = {
     </section>
 
     <!-- ── Capabilities ───────────────────────────────────────────────── -->
-    <section id="capabilities" class="scroll-mt-16 pb-20" data-section="capabilities">
+    <section
+      id="capabilities"
+      class="scroll-mt-20 pb-24"
+      data-section="capabilities"
+    >
       <SectionHead num="03" label="Capabilities" title="The toolkit" />
-      <div class="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {
           capabilities.map((c) => (
-            <div class="border-t border-rule-strong pt-4">
+            <div class="panel p-6">
               <h3 class="kicker">{c.heading}</h3>
-              <ul class="mt-4 space-y-1.5">
+              <ul class="mt-4 flex flex-wrap gap-1.5">
                 {c.items.map((item) => (
-                  <li class="text-[0.95rem]">{item}</li>
+                  <li class="rounded-full border border-rule-strong bg-surface px-3 py-1 text-[0.9rem]">
+                    {item}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -201,75 +210,58 @@ const jsonLd = {
     </section>
 
     <!-- ── Contact ────────────────────────────────────────────────────── -->
-    <section id="contact" class="scroll-mt-16 pb-24" data-section="contact">
+    <section id="contact" class="scroll-mt-20 pb-16" data-section="contact">
       <SectionHead num="04" label="Contact" title="Get in touch" />
-      <div class="mt-10 grid gap-10 md:grid-cols-12">
-        <form id="contact-form" class="md:col-span-7">
+      <div class="mt-10 grid gap-8 md:grid-cols-12">
+        <form id="contact-form" class="panel p-6 sm:p-8 md:col-span-7">
           <div class="grid gap-4 sm:grid-cols-2">
             <label class="block">
               <span class="kicker">Name</span>
-              <input
-                type="text"
-                name="name"
-                required
-                class="mt-2 w-full border border-rule bg-surface-2 px-3 py-2.5 text-[0.95rem] outline-none focus:border-accent"
-              />
+              <input type="text" name="name" required class="field mt-2" />
             </label>
             <label class="block">
               <span class="kicker">Email</span>
-              <input
-                type="email"
-                name="email"
-                required
-                class="mt-2 w-full border border-rule bg-surface-2 px-3 py-2.5 text-[0.95rem] outline-none focus:border-accent"
-              />
+              <input type="email" name="email" required class="field mt-2" />
             </label>
           </div>
           <label class="mt-4 block">
             <span class="kicker">Message</span>
-            <textarea
-              name="message"
-              rows="5"
-              required
-              class="mt-2 w-full border border-rule bg-surface-2 px-3 py-2.5 text-[0.95rem] outline-none focus:border-accent"
+            <textarea name="message" rows="5" required class="field mt-2"
             ></textarea>
           </label>
-          <button
-            type="submit"
-            class="mt-5 border border-accent bg-accent px-5 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-accent-fg transition-opacity hover:opacity-85"
-          >
+          <button type="submit" class="btn btn-primary mt-5">
             Open in mail client →
           </button>
-          <p class="mt-3 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-fg-faint">
+          <p class="mt-3 text-[0.86rem] text-fg-faint">
             This form composes a message in your own mail app — nothing is sent
             to a server, and nothing is stored here.
           </p>
         </form>
 
         <div class="md:col-span-5">
-          <p class="font-display text-[clamp(1.6rem,3vw,2.2rem)] leading-tight">
+          <p class="font-display text-[clamp(1.5rem,2.8vw,2rem)] leading-snug">
             Happiest on problems where the data is messy, the stakeholders
             disagree, and someone still has to decide.
           </p>
-          <ul class="mt-7 border-t border-rule">
-            <li class="flex justify-between border-b border-rule py-2.5">
+          <ul class="mt-7">
+            <li class="flex justify-between border-t border-rule py-3">
               <span class="kicker pt-0.5">Email</span>
               <a
                 href={`mailto:${site.email}`}
-                class="text-[0.9rem] hover:text-accent"
+                class="text-[0.95rem] text-accent hover:underline"
                 data-track="contact_submit"
                 data-contact-method="mailto_link">{site.email}</a
               >
             </li>
             {
               site.socials.map((s) => (
-                <li class="flex justify-between border-b border-rule py-2.5">
+                <li class="flex justify-between border-t border-rule py-3">
                   <span class="kicker pt-0.5">{s.label}</span>
                   <a
                     href={s.href}
                     target="_blank"
                     rel="noopener"
-                    class="text-[0.9rem] hover:text-accent"
+                    class="text-[0.95rem] text-accent hover:underline"
                   >
                     Visit ↗
                   </a>

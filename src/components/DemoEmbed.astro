@@ -28,7 +28,7 @@ const fallback = demo.fallbackImage ? imageSet(demo.fallbackImage) : undefined;
       href={src}
       target="_blank"
       rel="noopener"
-      class="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-accent no-underline hover:underline"
+      class="text-[0.93rem] font-semibold text-accent no-underline hover:underline"
       data-track="demo_interaction"
       data-demo-id={projectId}
       data-demo-action="open_in_new_tab"
@@ -49,7 +49,7 @@ const fallback = demo.fallbackImage ? imageSet(demo.fallbackImage) : undefined;
             page its first paint. */}
         <button
           type="button"
-          class="group relative block w-full overflow-hidden border border-rule"
+          class="group frame relative block w-full"
           data-demo-start
         >
           {fallback ? (
@@ -59,13 +59,13 @@ const fallback = demo.fallbackImage ? imageSet(demo.fallbackImage) : undefined;
               alt=""
               loading="lazy"
               decoding="async"
-              class="aspect-[16/10] w-full object-cover opacity-70 transition group-hover:opacity-90"
+              class="aspect-[16/10] w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
             />
           ) : (
             <span class="block aspect-[16/10] w-full bg-surface-2" />
           )}
           <span class="absolute inset-0 grid place-items-center">
-            <span class="border border-accent bg-accent px-5 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-accent-fg">
+            <span class="btn btn-primary">
               ▶ Load the live demo
             </span>
           </span>
@@ -77,7 +77,7 @@ const fallback = demo.fallbackImage ? imageSet(demo.fallbackImage) : undefined;
   {
     demo.type === 'video' && (
       <video
-        class="mt-4 w-full border border-rule"
+        class="frame mt-4 w-full"
         controls
         preload="none"
         poster={fallback?.src}
@@ -97,7 +97,7 @@ const fallback = demo.fallbackImage ? imageSet(demo.fallbackImage) : undefined;
         alt=""
         loading="lazy"
         decoding="async"
-        class="mt-4 w-full border border-rule"
+        class="frame mt-4 w-full"
       />
     )
   }
@@ -108,13 +108,13 @@ const fallback = demo.fallbackImage ? imageSet(demo.fallbackImage) : undefined;
         href={src}
         target="_blank"
         rel="noopener"
-        class="mt-4 flex items-center justify-between border border-rule px-5 py-6 no-underline transition-colors hover:border-accent"
+        class="panel mt-4 flex items-center justify-between px-6 py-6 no-underline transition-colors hover:border-accent"
         data-track="demo_interaction"
         data-demo-id={projectId}
         data-demo-action="open_in_new_tab"
       >
         <span class="font-display text-2xl">{label}</span>
-        <span class="font-mono text-sm text-accent">↗</span>
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-soft text-accent">↗</span>
       </a>
     )
   }
@@ -136,7 +136,7 @@ const fallback = demo.fallbackImage ? imageSet(demo.fallbackImage) : undefined;
       frame.title = 'Live demo';
       frame.loading = 'lazy';
       frame.allowFullscreen = true;
-      frame.className = 'aspect-[16/10] w-full border border-rule bg-surface-2';
+      frame.className = 'frame aspect-[16/10] w-full';
       wrap.replaceChildren(frame);
       track('demo_interaction', { demo_id: id, demo_action: 'load_embed' });
     });

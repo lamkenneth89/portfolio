@@ -1,12 +1,11 @@
 ---
-// Three states exist in the CSS: explicit light, explicit dark, and "follow the
-// system", which is what a visitor gets until they press this.
+// Light is the default look; dark is an explicit, remembered choice.
 ---
 
 <button
   type="button"
   id="theme-toggle"
-  class="grid h-7 w-7 place-items-center border border-rule text-fg-muted transition-colors hover:border-accent hover:text-accent"
+  class="grid h-8 w-8 place-items-center rounded-full border border-rule-strong text-fg-muted transition-colors hover:border-accent hover:text-accent"
   aria-label="Switch colour theme"
 >
   <svg
@@ -27,12 +26,7 @@
   const toggle = document.getElementById('theme-toggle');
   toggle?.addEventListener('click', () => {
     const root = document.documentElement;
-    const current =
-      root.dataset.theme ??
-      (window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light');
-    const next = current === 'dark' ? 'light' : 'dark';
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
     root.dataset.theme = next;
     try {
       localStorage.setItem('theme', next);
