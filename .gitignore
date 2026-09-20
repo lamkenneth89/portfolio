@@ -6,3 +6,7 @@ dist/
 
 # Generated from source-images/ by scripts/optimize-images.mjs (npm run prebuild)
 public/images/opt/
+
+# Working notes that must never reach the public repo (job applications, prep docs)
+WeLab_Handoff_ClaudeCode.md
+*_Handoff_*.md
