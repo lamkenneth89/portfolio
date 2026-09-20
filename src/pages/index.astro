@@ -27,20 +27,41 @@ const byCategory = CATEGORIES.map((category) => ({
 
 const capabilities = [
   {
-    heading: 'Data & cloud',
-    items: ['Python', 'SQL', 'GCP BigQuery', 'Databricks', 'Alteryx'],
-  },
-  {
-    heading: 'Analysis & visualisation',
-    items: ['Tableau', 'Power BI', 'Looker', 'Excel'],
-  },
-  {
-    heading: 'Martech & CRM',
+    heading: 'Measurement & BI',
     items: [
-      'Adobe Experience Cloud',
-      'Salesforce',
+      'Adobe Analytics',
       'GA4',
       'Google Tag Manager',
+      'Adobe Web SDK',
+      'Tableau',
+      'Looker Studio',
+      'Power BI',
+      'SAS',
+    ],
+  },
+  {
+    heading: 'Data & engineering',
+    items: [
+      'SQL',
+      'Python',
+      'GCP BigQuery',
+      'AWS Redshift',
+      'Databricks',
+      'Alteryx',
+      'Tableau Prep',
+      'ETL',
+    ],
+  },
+  {
+    heading: 'CRM & martech',
+    items: [
+      'Adobe Experience Cloud',
+      'CDP',
+      'Decision engine',
+      'Salesforce Marketing Cloud',
+      'Omnichat',
+      'CleverTap',
+      'Adobe Commerce',
       'Firebase Analytics',
     ],
   },
@@ -48,6 +69,7 @@ const capabilities = [
     heading: 'Build & AI',
     items: [
       'Claude Code',
+      'Gemini API',
       'Astro',
       'Kotlin / Compose',
       'Streamlit',
@@ -64,7 +86,23 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: site.name,
-  jobTitle: 'Analytics & CRM lead',
+  jobTitle: 'Digital and customer analytics lead',
+  description: site.tagline,
+  knowsAbout: [
+    'Customer analytics',
+    'Digital analytics',
+    'CRM strategy',
+    'Customer segmentation',
+    'Marketing measurement',
+    'Business intelligence',
+  ],
+  alumniOf: [
+    { '@type': 'CollegeOrUniversity', name: 'City University of Hong Kong' },
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'The Chinese University of Hong Kong',
+    },
+  ],
   email: `mailto:${site.email}`,
   address: { '@type': 'PostalAddress', addressLocality: site.location },
   url: new URL(url('/'), Astro.site).href,
@@ -108,13 +146,14 @@ const jsonLd = {
           class="reveal mt-7 max-w-[58ch] text-[1.12rem] text-fg-muted"
           style="--i:2"
         >
-          Fifteen years of consumer insight, business intelligence and CRM at
-          Dyson, PCCW and Mattel — doubling a CRM base in a year, and lifting
-          incremental repurchase past 20% by treating segmentation as an
-          operating system rather than a slide. The last year has been spent
-          building the things I used to specify: speech pipelines, instrumented
-          mobile apps, dashboards and a game, most of them written alongside an
-          AI pair.
+          Fifteen years of customer analytics, business intelligence and CRM —
+          most recently in digital banking, and before that at Dyson, Viu and
+          Mattel. Growing a CRM base fivefold, lifting incremental repurchase
+          past 20%, and driving 30% year-on-year growth in digital sales, by
+          treating measurement as infrastructure rather than reporting. The
+          last year has been spent building the things I used to specify:
+          speech pipelines, instrumented mobile apps, dashboards and a game,
+          most of them written alongside an AI pair.
         </p>
 
         <div class="reveal mt-9 flex flex-wrap gap-3" style="--i:3">

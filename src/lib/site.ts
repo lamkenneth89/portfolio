@@ -2,11 +2,11 @@ export const site = {
   name: 'Kenneth Lam',
   role: 'Analytics, CRM & AI-assisted engineering',
   tagline:
-    'Portfolio of Kenneth Lam — customer analytics, business intelligence, CRM strategy and the software he builds with AI.',
+    'Portfolio of Kenneth Lam — customer and digital analytics in banking and consumer brands, CRM strategy, and the software he builds with AI.',
   location: 'Hong Kong',
   email: 'lamkenneth89@gmail.com',
   resume:
-    'https://drive.google.com/file/d/1A8k3ITRVrj6a-ihIH8QeVwQe1-1X0VZK/view?usp=drive_link',
+    'https://drive.google.com/file/d/1MXE_T88pa3901aET01uZx4XhEQ-D9yPh/view?usp=sharing',
   socials: [
     {
       label: 'LinkedIn',
@@ -40,6 +40,6 @@ export const site = {
 export const facts = [
   { label: 'Based', value: 'Hong Kong' },
   { label: 'Focus', value: 'Customer analytics · CRM · AI builds' },
-  { label: 'Worked at', value: 'Dyson · PCCW · Mattel' },
+  { label: 'Worked at', value: 'Standard Chartered · Dyson · Viu · Mattel' },
   { label: 'Certified', value: 'Professional Scrum Master' },
 ] as const;

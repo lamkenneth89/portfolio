@@ -6,19 +6,46 @@ import ProfileCard from '../components/ProfileCard.astro';
 
 const timeline = [
   {
-    period: 'Now',
+    period: '2025 – 2026',
+    org: 'Standard Chartered Bank',
+    role: 'Associate Director, Digital Analytics & Performance Management',
+    what: 'Digital analytics across paid, owned and earned media, and the infrastructure underneath it: a CDP giving a single view of the customer, a tagging and measurement framework spanning twenty product journeys, and onboarding funnel analysis that turned drop-off into a product and risk conversation rather than a reporting line. Worked across Legal, Compliance, Risk and Product.',
+  },
+  {
+    period: '2024 – 2025',
+    org: 'Independent projects',
+    role: 'Six months between roles',
+    what: 'Professional Scrum Master I and Alteryx Designer Core, Google IT Automation with Python, the Google and Kaggle GenAI intensive, and the Databricks LLMs in Production course. Shipped the minibus scraper, ran a social platform landscape study, and built the first version of this site.',
+  },
+  {
+    period: '2022 – 2024',
     org: 'Dyson',
-    what: 'Consumer insight, business intelligence and CRM across Hong Kong and the region — segmentation, journey design, and the data architecture underneath both.',
+    role: 'Senior Manager — Insights, Analytics & CRM, Hong Kong & Taiwan',
+    what: 'Owned the CRM P&L and a team of three. Grew the CRM base fivefold and pushed incremental repurchase past 20% through K-Means segmentation and continuous campaign optimisation; rebuilt the customer journey across e-commerce, CRM and service; revamped the data architecture so the market stopped waiting on region for an extract.',
   },
   {
-    period: 'Earlier',
-    org: 'PCCW',
-    what: 'Cross-platform user behaviour and content analytics for a subscription business, where retention was the number that mattered.',
+    period: '2021 – 2022',
+    org: 'Viu (PCCW OTT)',
+    role: 'Business Analytics Lead, Greater Southeast Asia',
+    what: 'Retention and advertising analytics for a regional streaming business. Churn propensity scoring feeding retargeting and app push, an organic traffic tracker, and a UTM naming standard agreed across product, marketing and data. Scrum Master on the recommendation engine revamp, and founded the company’s Analytics Guild.',
   },
   {
-    period: 'Earlier',
+    period: '2018 – 2021',
     org: 'Mattel',
-    what: 'Market research and commercial analytics — category landscapes, price-tier share, and the research plan that fed product decisions.',
+    role: 'APAC Data & Insights Lead',
+    what: 'Market audits across APAC with SEO and customer-experience recommendations, media mix modelling to reallocate spend, a data repository with automated ETL, and social listening and POS mining feeding multi-brand go-to-market.',
+  },
+  {
+    period: '2013 – 2018',
+    org: 'PCCW HKT',
+    role: 'Market Planning Manager',
+    what: 'Revenue targets and ROI measurement frameworks for broadband and cloud services, customer portfolio and competitor analysis, pricing strategy, and the launch of a cloud storage product. Team of two, split between business planning and product marketing.',
+  },
+  {
+    period: '2010 – 2013',
+    org: 'TNS Hong Kong',
+    role: 'Senior Research Executive',
+    what: 'Brand tracking, NPS, mystery shopping and customer experience studies across finance, IT and telecoms, coordinating stakeholders across several countries. Where the research discipline came from.',
   },
 ];
 ---
@@ -39,11 +66,13 @@ const timeline = [
             I lead analytics work that has to survive contact with a commercial
             team: segmentation that changes who gets contacted, dashboards
             people open on a Monday morning, research that settles an argument
-            about which product to launch. At Dyson, PCCW and Mattel that has
-            meant doubling a CRM base inside a year, pushing incremental
-            repurchase past 20%, and rebuilding the data architecture
-            underneath so the market could stop waiting on region for an
-            extract.
+            about which product to launch. Most recently that has been in
+            digital banking — funnel friction, a single view of the customer,
+            and measurement treated as infrastructure rather than reporting.
+            Before that, at Dyson, Viu and Mattel, it meant growing a CRM base
+            fivefold, pushing incremental repurchase past 20%, and rebuilding
+            the data architecture underneath so a market could stop waiting on
+            region for an extract.
           </p>
           <p>
             The part that changed recently is the building. For most of my
@@ -98,6 +127,9 @@ const timeline = [
               <dt class="kicker pt-1 md:col-span-2">{t.period}</dt>
               <dd class="md:col-span-10">
                 <p class="font-display text-3xl leading-none">{t.org}</p>
+                <p class="mt-1.5 text-[0.95rem] font-semibold text-accent">
+                  {t.role}
+                </p>
                 <p class="mt-3 max-w-[62ch] text-fg-muted">{t.what}</p>
               </dd>
             </div>
