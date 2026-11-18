@@ -6,7 +6,7 @@ export const site = {
   location: 'Hong Kong',
   email: 'lamkenneth89@gmail.com',
   resume:
-    'https://drive.google.com/file/d/1MXE_T88pa3901aET01uZx4XhEQ-D9yPh/view?usp=sharing',
+    'https://drive.google.com/file/d/1EcTeUnaVEG5usmqJn0npZcdwAuQGRhxe/view?usp=sharing',
   socials: [
     {
       label: 'LinkedIn',
@@ -40,6 +40,6 @@ export const site = {
 export const facts = [
   { label: 'Based', value: 'Hong Kong' },
   { label: 'Focus', value: 'Customer analytics · CRM · AI builds' },
-  { label: 'Worked at', value: 'Standard Chartered · Dyson · Viu · Mattel' },
+  { label: 'Worked at', value: 'WeLab Bank · Standard Chartered · Dyson · Viu · Mattel' },
   { label: 'Certified', value: 'Professional Scrum Master' },
 ] as const;
